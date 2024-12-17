@@ -1,18 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Human Ski Parker</title>
-  <link rel="stylesheet" href="/css/project1.css">
-</head>
-<body>
-  <header>
-    <h3>Human Ski Parker</h3>
-    <div>
-      <button id="login">로그인</button>
-    </div>
-    sungwoon
-  </header>
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K2-K.VILLAGE</title>
+    <link rel="stylesheet" href="./css/k2.css">
+        <body>
+            <script src="../js/search.js"></script>
+            <div class="content-wrap">
+                <div class="wrap-holder w1640">
+                    <ul class=""breadcrumb flex right mt-20">
+                        <li>
+                            <a href="/main">
+                                <span class="gray">홈</span>
+                            </a>
+                        </li>
+                        <li class="gray">
+                            <i class="_img bread"></i>
+                        </li>
+                        <li class="dark">회원가입</li>
+                    </ul>
+                </div>
+                <div class="wrap-holder w1200 mt-60 pb-160">
+                    <div class="wrap-in center">
+                        <h1>회원가입</h1>
+                        <h2 class="h1 mt-40">
+                            <span class="b">K.VILLAGE</span>
+                            "에 오신 것을 환영합니다."
+                        </h2>
+                    </div>
+                    <div class="wrap-in flex center">
+                        <div class="w50p joinLine">
+                            <div class="center mt-40">
+                                <h4 class="m">일반 회원가입</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="center mt-10">
+                        <h5>할인 및 쿠폰 등 K.VILLAGE의 다양한 회원 혜택을 받을 수 있습니다.</h5>
+                    </div>
+                    <div class="center mt-20">
+                        <button class="btn-type-normal large joinGo">
+                            <div class="box">
+                                <span>회원가입</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="center mt-10">
+                        <button class="btn-type-normal large kakaoJoin" onclick="go0auth('kakao');">
+                            <div class="box">
+                                <img src="https://contents.k-village.co.kr/front/pc/images/common/join_kakao_icon.png" alt="">
+                                <span>카카오 1초 회원가입</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <div class="w50p">
+                    <div class="sns-holder center mt-40">
+                        <h4 class="m">SNS 간편 로그인</h4>
+                        <h5 class="mt-10">자주 사용하는 SNS 아이디로 간편하게 가입할 수 있습니다.</h5>
+                        <ul class="flex mt-20">
+                            <li>
+                                <a href="javascript:undefined;" onclick="goOauth('naver');">
+                                    <i class="_img naver"></i>
+                                    <span>네이버</span>
+                                </a>
+                            </li>
+                            <!-- <li><a href="javascript:undefined;" onclick="javascript:goOauth('kakao');">
+                                <i class="_img kakao"></i> <span>카카오</span></a></li>-->
+                            <li>
+                                <a href="javascript:undefined;" onclick="goOauth('fb');">
+                                    <i class="_img facebook"></i> 
+                                    <span>페이스북</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:undefined;" onclick="goOauth('apple');">
+                                    <i class="_img apple"></i> 
+                                    <span>애플</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal middle" style="display:none" id="P_MB_09_P">
+                    <!-- <div class="modal-header">
+                            <h2></h2>
+                        </div> -->
+                    <div class="modal-middle">
+                        <div class="div-header center mt-40">
+                            <h3>
+                                이미 K.VILLAGE 회원으로 가입된 계정입니다.
+                                <br>
+                                연결된 계정으로 로그인하세요.
+                            </h3>
+                        </div>
+                        <div class="flex margin center div-header mt-50">
+                            <button class="btn-type-normal large" id="modelLoginOk">
+                                <div class="box">
+                                    <span>확인</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="" class="close-modal">닫기</a>
+                </div>
+                <!-- 본인인증 modal -->
+                <!-- alert modal -->
+                <div class="modal middle" style="display:none;" id="alertModal">
+                    <div class="modal-middle">
+                        <div class="div-header mt-20 center">
+                            <h4 class="b">인증취소 하시겠습니까?</h4>
+                            <h4 class="b">인증을 하지 않을 경우 회원가입이 불가능 합니다.</h4>
+                        </div>
+                        <div class="flex margin center mt-40">
+                            <button class="btn-type-normal middle full" onclick="location.reload();">
+                                <div class="box">
+                                    <span>확인</span>
+                                </div>
+                            </button>
+                            <button class="btn-type-line middle full" onclick="popupClose();">
+                                <div class="box">
+                                    <span>취소</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- alert modal -->
+                <form name="inicisForm">
+                    <input type="hidden" name="mid" value="thekconn99">
+                    <input type="hidden" name="reqSvcCd" value="01">
+                    <input type="hidden" name="mTxId" value="mTxId_1734409916459">
+                    <input type="hidden" name="authHash" value="4e8618afe54401f2a3b9ae6623d263a11b41d938487a5f15b1e192c7ad5274b0">
+                    <input type="hidden" name="flgFixedUser" value="N">
+                    <input type="hidden" name="directAgency" value>
+                    <input type="hidden" name="successUrl" id="successUrl" value="https://www.k-village.co.kr/member/inicis/return">
+                    <input type="hidden" name="failUrl" id="failUrl" value="https://www.k-village.co.kr/error">
+                </form>
+                <form name="reqKMCISForm" method="post">
+                    <input type="hidden" name="tr_cert" id="tr_cert" value="KMC000001-1D94C2AAEF376EB3010A1D04424D6B0AA219DB0FAEE9772
+                    1683309E1E7A7B7624117366B9553AF5C092CC49C77ED5F3FE6E5A72062BA1D644B02AB7CC698504D0B7D842B60A19E24A6EA9A49BC7A7167
+                    D5F91FEDCC10AC4BC4CED823A8E93F905E0C2B0B16B1FE0D46F2CB5F9AC6AAD99BD26F25B5D5277C29F7C38C6CC33FDBD6ED4EC0FCA85A2DF1
+                    7309F393315C445907E2F5733D799B18FBDCE97E0F89775A2ED2F7E2B133493F3C93E72B10EFD2AB9D110B002610F2B0AC61CFD5D75F83631D
+                    731ECE204E23BE356CBB5EE685747321B25F654281DAB00110DB80C4935F52A343D35D3E0DB36E0E0A04A5BBAD28DE8283B208FDBE1CFAE1FF
+                    E67B269B19">
+                    <input type="hidden" name="tr_url" id="tr_url" value="https://www.k-village.co.kr/member/inicis/return">
+                    <input type="hidden" name="tr_add" id="tr_add" value="N">
+                </form>
+                <!-- // content -->
+                <div class="top-navi">
+                    <ul>
+                        <li class="mt-10" style>
+                            <a href="javascript:void(0)" onclick="openSearchPopupPC();" class="searchi">
+                                <i class="_img"></i>
+                            </a>
+                        </li>
+                        <li class="mt-10">
+                            <a href="javascript:void(0)" class="history" data-modal="#P_UT_04" 
+                            onclick="keymall.listLatelyGoods('pc', 1);" id="latelyIcon">
+                                <i class="_img"></i>
+                            </a>
+                        </li>
+                        <li class="mt-10" style>
+                            <a href="javascript:void(0)" class="gotop">
+                                <i class="_img"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- P_UT_04 modal -->
+                <!-- // P_UT_04_modal --> 
+                <!-- 네이버페이 로그인집 공통 함수 적용 -->
+                
+                <div class="jquery-modal blocker current">
+                    <div class="modal" style="display: inline-block;" id="certifyModal">
+                        <div class="modal-header">
+                            <h2>본인인증</h2>
+                        </div>
+                        <div class="modal-middle">
+                            <div class="sign-pop-txt pt-50">
+                                K.VILLAGE 회원약관에 따라 <span>본인인증</span>이 필요합니다.
+                                <strong>본인인증을 위한 인증방식을 선택해주세요.</strong>
+                            </div>
+                        <div class="sign-pop-select">
+                            <ul>
+                                <li class="on" id="liInicisAuth" onclick="chkAuth('liInicisAuth');">
+                                    <span>
+                                        <img src="https://contents.k-village.co.kr/front/pc/images/order/c_inicis2.png" alt="">간편인증
+                                    </span>
+                                </li>
+                                <li id="liKmcisAuth" onclick="chkAuth('liKmcisAuth');">
+                                    <span>
+                                        <img src="https://contents.k-village.co.kr/front/pc/images/order/c_sms.svg" alt="">SMS 인증
+                                    </span>
+                                </li>
+                            </ul>
+                            <div class="flex margin center">
+                                <button class="btn-type-normal middle" onclick="openAuthPop();">
+                                    <div class="box">
+                                        <span>확인</span>
+                                    </div>
+                                </button>
+                                <button class="btn-type-line middle" onclick="closePopupOpen();">
+                                    <div class="box">
+                                        <span>취소</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </body>
+    </head>
 </html>
+

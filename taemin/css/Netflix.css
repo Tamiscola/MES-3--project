@@ -4,6 +4,13 @@ html {
   background-position: 50%;
   
 }
+.modal.modal-right {
+  width: 520px;
+  height: calc(100% + 40px);
+  max-height: calc(100% + 40px);
+  margin: -20px -20px 0 0;
+  float: right;
+}
 
 header {
   display: flex;
