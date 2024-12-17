@@ -1,4 +1,4 @@
-package taemin.jsp;
+package taemin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
