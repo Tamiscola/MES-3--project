@@ -31,8 +31,38 @@ div{
   height: 100%; /* 세로는 꽉 채움 */
   background-color: rgba(255, 255, 255, 0.8); /* 배경색 (옵션) */
 }
-#login{
+#login_button{
   margin:  20px auto;
+  background-color: black;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: 1xp solid black;
 }
-
+#login_button:hover{
+  cursor: pointer;
+}
+#main_text1{
+  margin: 10px auto 250px;
+}
+input{
+  width: 195px;
+  height: 25px;
+  margin: 1px;
+}
+#Id_checkbox_button{
+  width: 20px;
+  height: 20px; 
+  margin: 2px;
+}
+#join_membership_button{
+  background-color: tomato;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: 1px solid tomato;
+}
+#join_membership_button:hover{
+  cursor: pointer;
+}
 
