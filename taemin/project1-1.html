@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="Korean">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nautral Yak</title>
+</head>
+<!--그리드로 만든 수정본입니다.-->
+<!--사용하지 않을거예요.-->
+<style>
+  body{
+    display: flex;
+    background-image: url(../img/main_img.png);
+    background-position: absolute;
+    background-attachment: fixed;
+    background-position: left top; 
+    background-size: cover;
+  }
+  .container{
+    display: grid;
+    grid-template-columns: 440px 440px 500px;
+    grid-template-rows: 400px 580px 100px;
+    grid-template-areas: "header header sidedbar"
+                         "content content sidedbar" 
+                         "footer footer footer";
+                         /*
+                         묶고싶으면 gird-area로 이름을 정해 묶어버린다.
+                         */
+  align-content :center;
+  justify-content :center;
+  }
+  #join_membership_button{
+  background-color: tomato;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: 1px solid tomato;
+  }
+  #login_button{
+  margin:  20px auto;
+  background-color: black;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: 1xp solid black;
+  }
+  .header_1{
+    grid-area: header;
+  }
+  .sidedbar_1{
+    grid-area: sidedbar;
+    background-color: rgba(255, 255, 255, 0.8); /* 배경색 (옵션) */
+
+  }
+  .main_rogo4{
+    grid-area: content;
+  }
+  .footer_1{
+    grid-area: footer;
+    background-color: black;
+    color: white;
+  }
+  #login_button:hover{
+  cursor: pointer;
+  }
+  #join_membership_button:hover{
+  cursor: pointer;
+  }
+</style>
+<body>
+  <div class ="container">
+    
+    <h1 class="header_1">Nautral Yak</h1>
+    
+    <div class="sidedbar_1">
+      <h1>Nautral Yak</h1>
+      <br>
+      <input type="text" id="Id_text"autocomplete="on|off">
+      <br>
+      <input type="checkbox">아이디 저장
+      <br>
+      <input type="text" id="password">
+      <br>
+      <button id="login_button">로그인</button>
+      <p>아이디가 없으신가요?</p>
+      <button id="join_membership_button">회원 가입</button>
+
+    </div>
+    <div class="main_rogo4">
+
+    </div>
+    
+
+    <div class="footer_1">
+      <p>전화번호: 010-xxxx-xxxx <br>
+        사업자 명: 주식회사 Nautral Yak<br>
+        주소: 수원시 장안구 연무동 서류구 xxx-xx</p>
+    </div>
+    
+
+  </div>
+</body>
+</html>
