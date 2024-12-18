@@ -8,7 +8,24 @@
 <%@ page import="taemin.DBManager" %>
 
 <% 
+	Connection conn = null;
 	
+	try {
+	    conn = DBManager.getDBConnection();
+	    if (conn != null && !conn.isClosed()) {
+	        System.out.println("Database connection successful!");
+	        
+	    } else {
+	    	System.out.println("Failed to connect to the database.");
+	    } 
+	} catch (SQLException se) {
+		    se.printStackTrace();
+		    out.println("<p>Error: " + se.getMessage() + "</p>");
+		} finally {
+		    if (conn != null) {
+		        DBManager.dbClose(conn, null, null);
+		    }
+		}
   %>
   <!DOCTYPE html>
 <html lang="en">
@@ -40,30 +57,25 @@
 	</form>
     
     <p>아이디가 없으신가요?</p>
-    <br>
-    <button id="join_membership_button">회원 가입</button>
+    <form id="register_id" method="post" action="project1_register.jsp">
+    	<button id="join_membership_button" name="register">회원 가입</button>
+    </form>
     <div  style="position: absolute; right: 10px; bottom: 0px;">전화번호 010-xxxx-xxxx <br>주소 수원시 장안구 서로구 xxx-xx  </div>
     </div>
   </div>
   
   <script>
   	document.addEventListener("DOMContentLoaded", function() {
-  		const idInput = document.querySelector("#id");
-  		const pwInput = document.querySelector("#password");
-  		const login_button = document.querySelector("#login_button");
-  		
-  		login_button.addEventListener("click", function() {
-  			const idValue = idInput.value;
-  	        const pwValue = pwInput.value;
-  			
-  			
-  		});
+  		const Id_checkbox_button = document.querySelector('#Id_checkbox_button');
   	})
   </script>
   
 </body>
 </html>
 
+<%
+	
+%>
 
 
 

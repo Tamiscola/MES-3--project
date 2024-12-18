@@ -31,6 +31,8 @@
 	    
 	    if (loginSuccessful == true) {
 	    	%><script> alert('login successful')</script> <% 
+	    } else {
+	    	%><script> alert('Wrong Id or Password')</script> <%
 	    }
 	    
 	} catch (SQLException se) {
