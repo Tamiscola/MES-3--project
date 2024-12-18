@@ -19,6 +19,7 @@
 	    } else {
 	        out.println("<p>Failed to connect to the database.</p>");
 	    }
+	    
 	
 	    String sql = "SELECT ID, PW FROM LOGIN WHERE ID = ? AND PW = ?";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -30,8 +31,9 @@
 	    loginSuccessful = rs.next(); // This will be true if there's at least one match
 	    
 	    if (loginSuccessful == true) {
-	    	%><script> alert('login successful')</script> <% 
-	    } else {
+	    	%><script> location.href = './project1_factory.jsp'</script> <% 
+	    } 
+	    else {
 	    	%><script> alert('Wrong Id or Password')</script> <%
 	    }
 	    

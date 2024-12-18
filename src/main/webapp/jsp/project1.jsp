@@ -67,6 +67,10 @@
   <script>
   	document.addEventListener("DOMContentLoaded", function() {
   		const Id_checkbox_button = document.querySelector('#Id_checkbox_button');
+  		const id = document.querySelector('#id');
+  		const login_button = document.querySelector('#login_button');
+  		
+  		
   	})
   </script>
   
