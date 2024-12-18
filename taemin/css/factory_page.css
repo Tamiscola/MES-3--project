@@ -1,0 +1,48 @@
+.leftbox {
+  text-align: center;  /* 글자 센터 */
+  position: absolute; /* 절대 위치 지정 */
+  top: 80px; /* 위에서부터 80px */
+  left: 0; /* 왼쪽 딱붙어서 진행 */
+  width: 200px; /* 가로 너비 200px */
+  height: 100vh; /* 세로는 꽉 채움 */
+  background-color: red; /* 배경색 (옵션) */
+}
+.class_box{ /*왼쪽박스의 마진값 +띄우기값 확인용*/
+  margin: 10px 0px 10px 0px;
+  background-color: white;
+  border: 1px solid white;
+  font-size: 15px; 
+}
+.big_headbox{ /*위쪽 큰박스*/
+  position: absolute; /* 절대 위치 지정*/
+  top: 0px;           /*위에 딱붙어 있기*/
+  left: 0;            /*왼쪽에 딱붙어있기*/
+  width: 100vw;       /*너비 가득 채우기*/
+  height: 80px;       /*leftbox에서 떨어진만큼의 높이 설정(공백없이만들기 위해*/
+  background-color: black;
+}
+.big_headbox_position{
+  display: flex;      /*flex 사용*/
+  flex-direction: row;  /*왼쪽에서 오른쪽으로*/
+  justify-content: space-between;  /*양쪽끝 고정 후 중앙에 띄움배치*/
+  background-color: white;
+  width: 100vw;
+  height: 60px;
+}
+#head_box1{
+  font-size: 40px
+}
+#material_management_button{ /*왼쪽 자재관리 버튼*/
+  width: 200px;   /*leftbox너비가 200px이라 꽉채우게 200px*/
+  height: 80px;   /*적당한 높이로 값*/
+}
+#material_management_button:hover{
+cursor: pointer;
+}
+#phone_number_button{ /*왼쪽 연락처관리 버튼*/
+  width: 200px;   /*leftbox너비가 200px이라 꽉채우게 200px*/
+  height: 80px;   /*적당한 높이로 값*/
+}
+#phone_number_button:hover{
+  cursor: pointer;
+}
