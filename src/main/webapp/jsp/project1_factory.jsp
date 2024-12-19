@@ -4,6 +4,19 @@
 <%@ page import="taemin.DBManager" %>
 <%@ page import="taemin.MainMaterial" %>
 
+<%
+
+String userId = (String)session.getAttribute("userId");
+if(userId == null) {
+	%>
+	<script>
+	location.href="./project1.jsp"
+	</script>
+	<% 
+}
+	%>
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +32,9 @@
     <div class="big_headbox_position">
       <div id="head_box1">Natural Yak</div>
       <div id="right_welcome">''어서오세요 <br>
-        <button id= logout_button>Logout</button>
+        <form id="Logout" action="./project1_logout.jsp" method="post">
+        	<button type="submit">Logout</button>
+        </form>
       </div>
     </div>
   </div>

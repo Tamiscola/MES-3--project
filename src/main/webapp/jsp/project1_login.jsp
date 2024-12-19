@@ -31,6 +31,7 @@
 	    loginSuccessful = rs.next(); // This will be true if there's at least one match
 	    
 	    if (loginSuccessful == true) {
+	    	session.setAttribute("userId", inputId);
 	    	%><script> location.href = './project1_factory.jsp'</script> <% 
 	    } 
 	    else {
