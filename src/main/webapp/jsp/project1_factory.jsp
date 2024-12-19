@@ -3,6 +3,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="taemin.DBManager" %>
 <%@ page import="taemin.MainMaterial" %>
+<%@ page import="taemin.SupplyContact" %>
 
 <%
 
@@ -54,24 +55,41 @@ Connection conn = null;
 try {
 	conn = DBManager.getDBConnection();
 	
-	String sql = "SELECT * FROM MAIN_MATERIAL";
+	String mat_sql = "SELECT * FROM MAIN_MATERIAL";
+	String sup_sql = "SELECT * FROM SUPPLY_CONTACT";
 
-    PreparedStatement pstmt = conn.prepareStatement(sql);
-	ResultSet rs = pstmt.executeQuery(sql);
+    PreparedStatement pstmt = conn.prepareStatement(mat_sql);
+    PreparedStatement pstmt2 = conn.prepareStatement(sup_sql);
+    
+	ResultSet rs = pstmt.executeQuery(mat_sql);
+	ResultSet rs2 = pstmt2.executeQuery(sup_sql);
+	
 	ResultSetMetaData rsmd = rs.getMetaData();
+	ResultSetMetaData rsmd2 = rs2.getMetaData();
 	
 	int n_cols = rsmd.getColumnCount();
+	int n_cols2 = rsmd2.getColumnCount();
 %>
  <script>
- let col_names = [];
+ let mat_col_names = [];
+ let sup_col_names = [];
  <% 
  for (int j = 1; j <= n_cols; j++) {
  %>
- 	col_names.push("<%= rsmd.getColumnName(j) %>");
+ 	mat_col_names.push("<%= rsmd.getColumnName(j) %>");
  <%
  }
  %>
- console.log(col_names);
+
+ <% 
+ for (int k = 1; k <= n_cols2; k++) {
+ %>
+ 	sup_col_names.push("<%= rsmd2.getColumnName(k) %>");
+ <%
+ }
+ %>
+ console.log("Material Columns:", mat_col_names);
+ console.log("Supply Columns:", sup_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
     // 자재 관리 버튼 클릭 이벤트
@@ -89,9 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const tbody = document.querySelector('tbody');
       
       
-      for (let i = 0; i < col_names.length; i++) {
+      for (let i = 0; i < mat_col_names.length; i++) {
     	  let th = document.createElement('th');
-    	  th.appendChild(document.createTextNode(col_names[i]));
+    	  th.appendChild(document.createTextNode(mat_col_names[i]));
     	  tr.appendChild(th);
       }
       
@@ -147,9 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
       		tbody.appendChild(tbody_tr);
       		
 	  <%}
-	  rs.close();%>
-	  
-	  
+	  %>
 
     });
 
@@ -158,37 +174,58 @@ document.addEventListener('DOMContentLoaded', function() {
       const contentArea = document.getElementById('content_area');
       contentArea.className = 'content';
       contentArea.innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>이름</th>
-              <th>전화번호</th>
-              <th>주소</th>
-              <th>이메일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>홍길동</td>
-              <td>010-1234-5678</td>
-              <td>서울시 강남구</td>
-              <td>hong@test.com</td>
-            </tr>
-            <tr>
-              <td>이순신</td>
-              <td>010-9876-5432</td>
-              <td>부산시 해운대구</td>
-              <td>lee@test.com</td>
-            </tr>
-            <tr>
-              <td>김철수</td>
-              <td>010-5555-1234</td>
-              <td>인천시 남동구</td>
-              <td>kim@test.com</td>
-            </tr>
-          </tbody>
-        </table>
-      `;
+        	<table>
+        		<thead>
+        			<tr></tr>
+        		</thead>
+        		<tbody></tbody>
+        	</table>
+        `;
+        let tr = document.querySelector('thead tr');
+      const tbody = document.querySelector('tbody');
+      
+      
+      for (let i = 0; i < sup_col_names.length; i++) {
+    	  let th = document.createElement('th');
+    	  th.appendChild(document.createTextNode(sup_col_names[i]));
+    	  tr.appendChild(th);
+      }
+      
+      let tbody_tr;
+      let tbody_td;
+      
+      <% while (rs2.next()) { 
+      		SupplyContact sp = new SupplyContact();
+      		sp.setSup_name(rs2.getString("SUP_NAME"));
+      		sp.setSup_phone(rs2.getString("SUP_PHONE"));
+      		sp.setSup_address(rs2.getString("SUP_ADDRESS"));
+      		sp.setSup_email(rs2.getString("SUP_EMAIL"));
+      		
+      		%>
+      		
+      		tbody_tr = document.createElement('tr');
+			
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_name()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_phone()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_address()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_email()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		
+      		
+      		tbody.appendChild(tbody_tr);
+        <%}
+        rs.close();%>
     });
 })
   </script>
