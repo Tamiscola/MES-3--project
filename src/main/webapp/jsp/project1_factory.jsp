@@ -259,6 +259,22 @@ document.addEventListener('DOMContentLoaded', function() {
       		tbody.appendChild(tbody_tr);
         <%}
         rs.close();%>
+        let selectedRows = [];
+
+  	  document.querySelectorAll('tr').forEach(row => {
+  		  row.addEventListener("click", function() {
+  			 if (selectedRows.includes(this)) {
+  				// Deselect the row
+  				selectedRows = selectedRows.filter(r => r != this);
+  				this.style.backgroundColor = "";
+  			 }  else {
+  				// Select the row 
+  				selectedRows.forEach(r => r.style.backgroundColor = "");
+  				selectedRows = [this];
+  				this.style.backgroundColor = "royalblue";
+  			 }
+  		  });
+  	  });
     });
 })
   </script>
