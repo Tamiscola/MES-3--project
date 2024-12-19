@@ -32,6 +32,7 @@
 	    
 	    if (loginSuccessful == true) {
 	    	session.setAttribute("userId", inputId);
+	    	
 	    	%><script> location.href = './project1_factory.jsp'</script> <% 
 	    			
 	    } 
