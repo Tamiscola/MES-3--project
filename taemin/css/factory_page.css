@@ -1,3 +1,6 @@
+body{                     /*전체적인 배경색깔*/
+  background-color: #1C202A;
+}
 .leftbox {                /*왼쪽 박스*/
   text-align: center;     /* 글자 센터 */
   position: absolute;     /* 절대 위치 지정 */
@@ -5,12 +8,14 @@
   left: 0;                /* 왼쪽 딱붙어서 진행 */
   width: 175px;           /* 가로 너비 200px */
   height: 100vh;          /* 세로는 꽉 채움 */
-  background-color:  rgba(0, 0, 0, 0.8);  /* 배경색 (옵션) */
+  background-color:  #1C202A;  /* 배경색 (옵션) */
+  margin: 20px 0px 0px 0px;      /*위에 딱붙기 방지용*/
+  /*border-right: 1px solid white;*/
 }
 .class_box{ /*왼쪽박스의 마진값 +띄우기값 확인용*/
   margin: 10px 0px 10px 0px;
-  background-color: #38415f;
-  border: 1px solid #4d64af;
+  background-color: #1C202A;
+  border: 2px solid #4d64af;
   color: white;
   font-size: 15px; 
   border-radius: 8%;
@@ -21,25 +26,27 @@
   left: 0;            /*왼쪽에 딱붙어있기*/
   width: 100vw;       /*너비 가득 채우기*/
   height: 80px;       /*leftbox에서 떨어진만큼의 높이 설정(공백없이만들기 위해*/
-  background-color: rgba(240, 165, 0, 0.7);
+  background-color: rgb(19, 21, 146);
 }
 .big_headbox_position{ /*위쪽 큰박스2*/
   display: flex;      /*flex 사용*/
   flex-direction: row;  /*왼쪽에서 오른쪽으로*/
   justify-content: space-between;  /*양쪽끝 고정 후 중앙에 띄움배치*/
-  background-color: rgba(56, 34, 34, 0.7);
+  background-color: white;
   width: 100vw;
   height: 70px;
 }
 #head_box1{
   font-size: 40px;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.7);
+  color: rgba(0, 0, );
 }
+
+
 #material_management_button{ /*왼쪽 자재관리 버튼*/
-  width: 175px;     /*leftbox너비가 200px이라 꽉채우게 200px*/
+  width: 120px;     /*leftbox너비가 200px이라 꽉채우게 200px*/
   height: 30px;     /*적당한 높이로 값*/
-  font-size: 15px;  /*폰트 크기*/
+  font-size: 10%;  /*폰트 크기*/
   font-weight:bold; /*폰트 두께*/
   letter-spacing: 0.1em;
 }
@@ -47,9 +54,9 @@
 cursor: pointer;
 }
 #contact_management_button{ /*왼쪽 연락처관리 버튼*/
-  width: 175px;     /*leftbox너비가 200px이라 꽉채우게 200px*/
+  width: 120px;     /*leftbox너비가 200px이라 꽉채우게 200px*/
   height: 35px;     /*적당한 높이로 값*/
-  font-size: 15px;  /*폰트 크기*/
+  font-size: 10%;  /*폰트 크기*/
   font-weight:bold; /*폰트 두께*/
   letter-spacing: 0.1em;
 }
@@ -58,15 +65,18 @@ cursor: pointer;
 }
 /* 테이블을 표시할 공간 스타일 */
 .content {
-  margin: 100px 100px 100px 200px;  /* 위, 아래, 왼쪽, 오른쪽 100px 마진 */
+  margin: 200px 100px 100px 250px;  /* 위, 아래, 왼쪽, 오른쪽 100px 마진 */
   background-color: #f8f8f8;      /* 테이블 배경색 */
   padding: 20px;                    /* 테두리 내부 여백 */
   border: 1px solid #ccc;         /* 테두리 */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 테두리 그림자 */
 }
+#right_welcome{               /*오른쪽상단 어서오세요 글자*/
+  margin: 0px 5px 0px 0px;
+}
 #logout_button{                /*오른쪽 상단 로그아웃 버튼*/
   position: absolute;          /*위치 절대 고정*/
-  right: 1px;                  /*오른쪽에 딱 붙게 고정*/
+  right: 5px;                  /*오른쪽에 딱 붙게 고정*/
   background-color: #38415f;
   width: 55px; 
   color: rgba(255, 255, 255, 0.8); 
@@ -115,14 +125,14 @@ table {
   border-collapse: collapse;
 }
 
-th, td {
-  border: 1px solid #ddd;
+th, td {  /*선색상*/
+  border: 1px solid #ddd; 
   padding: 10px;
   text-align: center;
 }
 
-th {
-  background-color: #f0f0f0;
+th {            /*헤드*/
+  background-color: #D1C9A4;
   font-weight: bold;
 }
 
@@ -132,4 +142,14 @@ tr:nth-child(even) {
 /* 스크롤바 스타일 숨기기 */
 ::-webkit-scrollbar {
   display: none;
+}
+.above-table-space{
+  background-color: #1C202A;
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  width: 100vw;
+  height: 50px;
+  border-bottom: 1px solid white;
+  color: white;
 }
