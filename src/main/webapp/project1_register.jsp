@@ -9,11 +9,12 @@
 <% 
     
     String id = request.getParameter("id");
-    String pw = request.getParameter("pw");
+    String pw1 = request.getParameter("pw1");
+    String pw2 = request.getParameter("pw2");
     String name = request.getParameter("name");
     
 
-    if (id != null && pw != null && name != null) {
+    if (id != null && pw1 != null && name != null) {
         
         Connection conn = DBManager.getDBConnection();
         
@@ -32,13 +33,21 @@
     	<%
                 
             } else {
+            	if(!pw1.equals(pw2)) {
+            		%>
+                	<script>
+                	alert("비밀번호 불일치")
+                	</script>
+                	<%
+            		
+            	} else {
     
                 String insertSql = "INSERT INTO login(no, id, pw, name, reg_date)"
                                    + "VALUES (seq_login.NEXTVAL, ?, ?, ?, sysdate)";
                 
                 PreparedStatement pstmt = conn.prepareStatement(insertSql);
                 pstmt.setString(1, id);
-                pstmt.setString(2, pw);
+                pstmt.setString(2, pw1);
                 pstmt.setString(3, name);
                 
                 pstmt.executeUpdate();
@@ -50,6 +59,7 @@
                 location.href="project1.jsp"
                 </script>
                 <%
+            	}
             }
             
             DBManager.dbClose(conn, checkPstmt, rs);
@@ -68,11 +78,12 @@
     <title>회원가입</title>
 </head>
 <body>
-    <h2>회원가입</h2>
+    <h1>회원가입</h1>
     
     <form id="form1" action="project1_register.jsp" method="POST">
         <input type="text" id="id" name="id" placeholder="아이디" required>
-        <input type="password" id="pw" name="pw" placeholder="비밀번호" required>
+        <input type="password" id="pw1" name="pw1" placeholder="비밀번호" required>
+        <input type="password" id="pw2" name="pw2" placeholder="비밀번호확인" required>
         <input type="text" id="name" name="name" placeholder="이름" required>
         <button type="submit">가입</button>
    	</form>
