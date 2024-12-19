@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
       contentArea.innerHTML = `
     	  <td>
     	    <div class="button-container">
-    	    <form action="">
+    	    <form action="project1_factory_material_add.jsp">
     	        <button id="add_button">추가</button>
     	        </form>
     	        <button id="edit_button">수정</button>
