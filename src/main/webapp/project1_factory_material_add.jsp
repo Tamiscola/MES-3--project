@@ -31,20 +31,8 @@
         pstmt.setString(6, windproof);
         pstmt.setString(7, supply_company);
 
-        int rowsInserted = pstmt.executeUpdate();
-        if (rowsInserted > 0) {
-    	%>
-    	<script>
-    	alert("등록")
-    	</script>
-    	<%
-        } else {
-        	%>
-        	<script>
-        	alert("실패")
-        	</script>
-        	<%
-        }
+        int rows = pstmt.executeUpdate();
+       
 
     } catch (Exception e) {
         

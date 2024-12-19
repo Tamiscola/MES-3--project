@@ -261,10 +261,8 @@ document.addEventListener('DOMContentLoaded', function() {
       contentArea.innerHTML = `
     	  <td>
     	    <div class="button-container">
-    	    <form action="project1_factory_material_add.jsp">
-    	        <button id="add_button">추가</button>
-    	        </form>
-    	        <button id="edit_button">수정</button>
+    	    	<button id="add_button">추가</button>
+    	    	<button id="edit_button">수정</button>
     	        <button id="delete_button">삭제</button>
     	    </div>
     	    </td>  
@@ -275,6 +273,12 @@ document.addEventListener('DOMContentLoaded', function() {
       		<tbody></tbody>
       	</table>
       `;
+      
+      const deleteButton = document.getElementById('delete_button');
+      
+      const addButton = document.getElementById('add_button');
+      //const editButton = document.getElementById('edit_button');
+      
       let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
       
@@ -337,7 +341,49 @@ document.addEventListener('DOMContentLoaded', function() {
       		tbody.appendChild(tbody_tr);
       		
 	  <%}
-	  rs.close();%>
+	  %>
+	  let selectedRows = [];
+
+	  document.querySelectorAll('tr').forEach(row => {
+		  row.addEventListener("click", function() {
+			 if (selectedRows.includes(this)) {
+				// Deselect the row
+				selectedRows = selectedRows.filter(r => r != this);
+				this.style.backgroundColor = "";
+			 }  else {
+				// Select the row 
+				selectedRows.forEach(r => r.style.backgroundColor = "");
+				selectedRows = [this];
+				this.style.backgroundColor = "royalblue";
+			 }
+		  });
+	  });
+	  
+	  
+	  addButton.addEventListener("click", function() {
+		  location.href=`./project1_factory_material_add.jsp`
+	  }
+	  
+			
+	  
+	  
+	  
+	  deleteButton.addEventListener("click", function(){
+			 if (selectedRows.length == 0) {	// 선택한 행이 없을 시
+				 alert("항목을 선택해주세요.");
+			 } else {
+				 if (confirm("정말 삭제하시겠습니까?")) {
+					 for (i = 0; i < selectedRows.length; i++) {	// 모든 선택된 행
+						 const matNo = selectedRows[i].children[0].textContent;
+						 selectedRows[i].remove();
+						 console.log("Deleting material with NO:", matNo);	
+						 
+					 	 location.href = `./factory_material_delete.jsp?matNo=` + matNo;
+					 }
+					 selectedRows = [];	// 선택된 행들 집합 리셋
+				 }
+			 }
+		  });
 	  
 	  
 
