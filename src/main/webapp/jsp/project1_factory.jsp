@@ -32,7 +32,7 @@ if(userId == null) {
   <div class="big_headbox">
     <div class="big_headbox_position">
       <div id="head_box1">Natural Yak</div>
-      <div id="right_welcome">''어서오세요 <br>
+      <div id="right_welcome"><%= userId %>님 어서오세요 <br>
         <form id="Logout" action="./project1_logout.jsp" method="post">
         	<button type="submit">Logout</button>
         </form>
@@ -95,7 +95,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // 자재 관리 버튼 클릭 이벤트
     document.getElementById('material_management_button').addEventListener('click', function() {
       const contentArea = document.getElementById('content_area');
+      // 테이블 생성
       contentArea.innerHTML = `
+    	  <td>
+    	    <div class="button-container">
+    	        <button id="add_button">추가</button>
+    	        <button id="edit_button">수정</button>
+    	        <button id="delete_button">삭제</button>
+    	    </div>
+    	    </td>  
       	<table>
       		<thead>
       			<tr></tr>
@@ -103,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
       		<tbody></tbody>
       	</table>
       `;
+      //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
       
@@ -166,6 +175,23 @@ document.addEventListener('DOMContentLoaded', function() {
       		
 	  <%}
 	  %>
+	  let selectedRows = [];
+
+	  document.querySelectorAll('tr').forEach(row => {
+		  row.addEventListener("click", function() {
+			 if (selectedRows.includes(this)) {
+				// Deselect the row
+				selectedRows = selectedRows.filter(r => r != this);
+				this.style.backgroundColor = "";
+			 }  else {
+				// Select the row 
+				selectedRows.forEach(r => r.style.backgroundColor = "");
+				selectedRows = [this];
+				this.style.backgroundColor = "royalblue";
+			 }
+		  });
+	  });
+
 
     });
 
@@ -174,6 +200,13 @@ document.addEventListener('DOMContentLoaded', function() {
       const contentArea = document.getElementById('content_area');
       contentArea.className = 'content';
       contentArea.innerHTML = `
+    	  <td>
+    	    <div class="button-container">
+    	        <button id="add_button">추가</button>
+    	        <button id="edit_button">수정</button>
+    	        <button id="delete_button">삭제</button>
+    	    </div>
+    	    </td>  
         	<table>
         		<thead>
         			<tr></tr>
