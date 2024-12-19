@@ -4,8 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    #main_flex{
+      display: flex;
+    }
+    #top_foot_flex{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    #left_right_flex{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      width: 
+    }
+    .mainname_or_mainlogout{
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
 </head>
 <body>
-  
+  <div id="main_flex">
+    <div id ="top_foot_flex">
+      <div class="mainname_or_mainlogout">Natural Yak
+        <div>어서오세요 <button id="logout_button">Logout</button></div>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div id="left_right_flex">
+      <div>1</div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </body>
 </html>

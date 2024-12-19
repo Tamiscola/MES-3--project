@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flex Layout</title>
+  <style>
+    /* 전역 스타일 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* 부모 컨테이너 */
+    .parent {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* 전체 화면 높이 */
+    }
+
+    /* 상단 바 */
+    .header {
+      height: 100px; /* 고정 높이 */
+      background-color: #ddd;
+    }
+
+    /* 가운데 영역 (좌, 중앙, 우) */
+    .main {
+      display: flex;
+      flex: 1; /* 남은 높이를 채움 */
+    }
+
+    .side {
+      width: 150px; /* 좌우 영역 고정 너비 */
+      background-color: #bbb;
+    }
+
+    .center {
+      flex: 1; /* 중앙 영역 확장 */
+      background-color: #eee;
+    }
+
+    /* 하단 바 */
+    .footer {
+      height: 100px; /* 고정 높이 */
+      background-color: #ccc;
+    }
+
+    /* 박스 스타일 (테두리용) */
+    .box {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="header box">Header</div>
+    <div class="main">
+      <div class="side box">Left</div>
+      <div class="center box">Center</div>
+      <div class="side box">Right</div>
+    </div>
+    <div class="footer box">Footer</div>
+  </div>
+</body>
+</html>
+
