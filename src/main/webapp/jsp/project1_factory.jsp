@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.ResultSetMetaData" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="taemin.DBManager" %>
+<%@ page import="taemin.MainMaterial" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -50,7 +46,7 @@ try {
  <script>
  let col_names = [];
  <% 
- for (int j = 1; j < n_cols; j++) {
+ for (int j = 1; j <= n_cols; j++) {
  %>
  	col_names.push("<%= rsmd.getColumnName(j) %>");
  <%
@@ -67,9 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
       		<thead>
       			<tr></tr>
       		</thead>
+      		<tbody></tbody>
       	</table>
       `;
       let tr = document.querySelector('thead tr');
+      const tbody = document.querySelector('tbody');
       
       
       for (let i = 0; i < col_names.length; i++) {
@@ -77,6 +75,62 @@ document.addEventListener('DOMContentLoaded', function() {
     	  th.appendChild(document.createTextNode(col_names[i]));
     	  tr.appendChild(th);
       }
+      
+      let tbody_tr;
+      let tbody_td;
+      
+      <% while (rs.next()) { 
+      		MainMaterial mm = new MainMaterial();
+      		mm.setNo(rs.getInt("NO"));
+      		mm.setColor(rs.getString("COLOR"));
+      		mm.setQuantity(rs.getInt("QUANTITY"));
+      		mm.setMaterial(rs.getString("MATERIAL"));
+      		mm.setDefection(rs.getString("DEFECTION"));
+      		mm.setWaterProof(rs.getString("WATERPROOF"));
+      		mm.setWindProof(rs.getString("WINDPROOF"));
+      		mm.setSupplyCompany(rs.getString("SUPPLY_COMPANY"));
+      		%>
+      		
+      		tbody_tr = document.createElement('tr');
+			
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getNo()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getColor()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getQuantity()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getMaterial()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getDefection()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getWaterProof()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getWindProof()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= mm.getSupplyCompany()%>"))
+      		tbody_tr.appendChild(tbody_td);
+      		
+      		tbody.appendChild(tbody_tr);
+      		
+	  <%}
+	  rs.close();%>
+	  
+	  
 
     });
 
