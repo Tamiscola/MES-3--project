@@ -12,15 +12,14 @@
   <title>Factory Page</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/factory_page.css">
   <style>
-
   </style>
 </head>
 <body>
   <div class="big_headbox">
     <div class="big_headbox_position">
-      <div id="head_box1">Nautral Yak</div>
-      <div id="head_box3">''님 어서오세요 <br>
-        <button>Logout</button>
+      <div id="head_box1">Natural Yak</div>
+      <div id="right_welcome">''어서오세요 <br>
+        <button id= logout_button>Logout</button>
       </div>
     </div>
   </div>
@@ -28,8 +27,13 @@
     <button type="button" class="class_box" id="material_management_button">자재 관리</button>
     <button class="class_box" id="contact_management_button">연락처 관리</button>
   </div>
+  <div class="above-table-space">
+    자재 관리 <!--여기에 버튼을 클릭하면 글자가 버튼누른 글자로 변하는 방식으로 변경-->
+  </div>
+  <div class="divider"></div>
   <!-- 중앙 공백 공간 -->
   <div id="content_area"></div>
+
 <% 
 Connection conn = null;
 try {
