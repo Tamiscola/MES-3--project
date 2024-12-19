@@ -1,10 +1,19 @@
 package taemin;
 
 public class SupplyContact {
+	private int sup_no;
 	private String sup_name;
 	private String sup_phone;
 	private String sup_address;
 	private String sup_email;
+	
+	public int getSup_no() {
+		return sup_no;
+	}
+	public void setSup_no(int sup_no) {
+		this.sup_no = sup_no;
+	}
+	
 	public String getSup_name() {
 		return sup_name;
 	}

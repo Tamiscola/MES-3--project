@@ -71,6 +71,7 @@ try {
 	int n_cols2 = rsmd2.getColumnCount();
 %>
  <script>
+ // 주재료, 공급업체 테이블 칼럼 이름 불러오기
  let mat_col_names = [];
  let sup_col_names = [];
  <% 
@@ -111,6 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
       		<tbody></tbody>
       	</table>
       `;
+      
+      const deleteButton = document.getElementById('delete_button');
+      const addButton = document.getElementById('add_button');
+      const editButton = document.getElementById('edit_button');
+      
       //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
@@ -178,7 +184,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	  let selectedRows = [];
 
 	  document.querySelectorAll('tr').forEach(row => {
-		  row.addEventListener("click", function() {
+		  row.addEventListener("click", function(event) {
+			  // 단일행 선택 동작
 			 if (selectedRows.includes(this)) {
 				// Deselect the row
 				selectedRows = selectedRows.filter(r => r != this);
@@ -191,11 +198,32 @@ document.addEventListener('DOMContentLoaded', function() {
 			 }
 		  });
 	  });
+	  
+	  // 행 버튼 동작
+	  // 삭제 버튼
+	  
+	  deleteButton.addEventListener("click", function(){
+		 if (selectedRows.length == 0) {	// 선택한 행이 없을 시
+			 alert("항목을 선택해주세요.");
+		 } else {
+			 if (confirm("정말 삭제하시겠습니까?")) {
+				 for (i = 0; i < selectedRows.length; i++) {	// 모든 선택된 행
+					 const matNo = selectedRows[i].children[0].textContent;
+					 selectedRows[i].remove();
+					 console.log("Deleting material with NO:", matNo);	
+					 
+				 	 location.href = `./factory_material_delete.jsp?matNo=` + matNo;
+				 }
+				 selectedRows = [];	// 선택된 행들 집합 리셋
+			 }
+		 }
+	  });
+	  
 
 
     });
 
-    // 연락처 관리 버튼 클릭 이벤트
+    // 연락처 관리 테이블 불러오기
     document.getElementById('contact_management_button').addEventListener('click', function() {
       const contentArea = document.getElementById('content_area');
       contentArea.className = 'content';
@@ -216,6 +244,9 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
+      const deleteButton = document.getElementById('delete_button');
+      const addButton = document.getElementById('add_button');
+      const editButton = document.getElementById('edit_button');
       
       
       for (let i = 0; i < sup_col_names.length; i++) {
@@ -229,6 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       <% while (rs2.next()) { 
       		SupplyContact sp = new SupplyContact();
+      		sp.setSup_no(rs2.getInt("SUP_NO"));
       		sp.setSup_name(rs2.getString("SUP_NAME"));
       		sp.setSup_phone(rs2.getString("SUP_PHONE"));
       		sp.setSup_address(rs2.getString("SUP_ADDRESS"));
@@ -237,6 +269,10 @@ document.addEventListener('DOMContentLoaded', function() {
       		%>
       		
       		tbody_tr = document.createElement('tr');
+      		
+      		tbody_td = document.createElement('td');
+      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_no()%>"))
+      		tbody_tr.appendChild(tbody_td);
 			
       		tbody_td = document.createElement('td');
       		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_name()%>"))
@@ -258,8 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
       		
       		tbody.appendChild(tbody_tr);
         <%}
-        rs.close();%>
-        let selectedRows = [];
+      rs.close();%>
+      let selectedRows = [];
 
   	  document.querySelectorAll('tr').forEach(row => {
   		  row.addEventListener("click", function() {
@@ -275,10 +311,30 @@ document.addEventListener('DOMContentLoaded', function() {
   			 }
   		  });
   	  });
+  	  
+  	  // 행 버튼 동작
+	  // 삭제 버튼
+	  
+	  deleteButton.addEventListener("click", function(){
+		 if (selectedRows.length == 0) {	// 선택한 행이 없을 시
+			 alert("항목을 선택해주세요.");
+		 } else {
+			 if (confirm("정말 삭제하시겠습니까?")) {
+				 for (i = 0; i < selectedRows.length; i++) {	// 모든 선택된 행
+					 const supNo = selectedRows[i].children[0].textContent;
+					 selectedRows[i].remove();
+					 console.log("Deleting material with NO:", supNo);	
+					 
+				 	 location.href = `./factory_sup_delete.jsp?supNo=` + supNo;
+				 }
+				 selectedRows = [];	// 선택된 행들 집합 리셋
+			 }
+		 }
+	  });
     });
 })
   </script>
-  <%
+  <%	DBManager.dbClose(conn, pstmt, null);
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
