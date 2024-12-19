@@ -5,7 +5,7 @@
 <%@ page import="java.sql.PreparedStatement" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="com.company1.DBManager" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
 </body>
 </html>
