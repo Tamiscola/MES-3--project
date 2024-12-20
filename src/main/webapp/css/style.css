@@ -1,0 +1,78 @@
+/* 기본 스타일 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    background-image: url(../img/main_img.png) ;
+    background-size: cover;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    height: 100vh; /* 화면 전체 높이 */
+  }
+  .header {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .main{
+    display: flex;
+    flex-direction: column; /* 주측 세로로 방향 지정*/
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+  }
+  
+  .header {
+    flex-grow: 1; /* 남은 공간 중 일부를 차지 */
+    
+  }
+  .main {
+    flex-grow: 2; /* 더 많은 공간 차지 */
+    text-align: center;
+    
+  }
+  .footer {
+    flex-grow: 1; /* 남은 공간 중 일부를 차지 */
+    text-align: center;
+  }
+  #join_membership_button{
+    background-color: tomato;
+    color: white;
+    width: 440px;
+    height: 50px;
+    border: 1px solid tomato;
+  }
+  #join_membership_button:hover{
+    cursor: pointer;
+  }
+  #login_button{
+    margin:  20px auto;
+    background-color: black;
+    color: white;
+    width: 440px;
+    height: 50px;
+    border: 1xp solid black;
+  }
+  #login_button:hover{
+    cursor: pointer;
+  }
+  #Id_checkbox_button{
+    width: 440px;
+    height: 50px;
+  }
+  #password_button{
+    width: 440px;
+    height: 50px;
+  }
+  strong{
+    font-size: 20px;
+  }
+  #additional-info{
+    
+  }

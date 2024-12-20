@@ -213,9 +213,8 @@ tr:nth-child(even) {
     <div class="big_headbox_position">
       <div id="head_box1">Natural Yak</div>
       <div id="right_welcome"><%= session.getAttribute("userName") %>님 어서오세요 <br>
-        <form id="Logout" action="./project1_logout.jsp" method="post">
-        	<button type="submit">Logout</button>
-        </form>
+      <button id="log_out">Logout</button>
+        
       </div>
     </div>
   </div>
@@ -274,10 +273,19 @@ document.addEventListener('DOMContentLoaded', function() {
       	</table>
       `;
       
-      const deleteButton = document.getElementById('delete_button');
-      
+      //logout 작업중
+      document.addEventListener('DOMContentLoaded', function() {
+      const logout = document.getElementById('log_out');
+      logout.addEventListener("click", function() {
+    	  alert("로그아웃 되었습니다.")
+    	  });
+      });
+      	
       const addButton = document.getElementById('add_button');
       //const editButton = document.getElementById('edit_button');
+      
+      
+      const deleteButton = document.getElementById('delete_button');
       
       let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
@@ -362,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  
 	  addButton.addEventListener("click", function() {
 		  location.href=`./project1_factory_material_add.jsp`
-	  }
+	  });
 	  
 			
 	  

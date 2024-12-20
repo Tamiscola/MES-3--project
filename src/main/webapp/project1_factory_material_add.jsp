@@ -32,7 +32,19 @@
         pstmt.setString(7, supply_company);
 
         int rows = pstmt.executeUpdate();
-       
+        if (rows > 0) {
+    	%>
+    	<script>
+    	alert("등록")
+    	</script>
+    	<%
+        } else {
+        	%>
+        	<script>
+        	alert("실패")
+        	</script>
+        	<%
+        }
 
     } catch (Exception e) {
         
