@@ -1,0 +1,94 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, javax.servlet.*, javax.servlet.http.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>패딩 자재 관리</title>
+    <style>
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">패딩 자재 관리 시스템</h2>
+    
+    <form action="material.jsp" method="post" style="text-align: center;">
+        <label for="paddingName">패딩 이름: </label>
+        <input type="text" name="paddingName" required>
+        <label for="materialName">자재 이름: </label>
+        <input type="text" name="materialName" required>
+        <label for="quantity">필요한 수량: </label>
+        <input type="number" name="quantity" min="1" required>
+        <button type="submit">패딩 제작</button>
+    </form>
+    
+    <hr>
+    
+    <%
+        // 초기 자재 데이터 (가상의 데이터)
+        Map<String, Integer> materials = (Map<String, Integer>) application.getAttribute("materials");
+        if (materials == null) {
+            materials = new HashMap<>();
+            materials.put("나일론", 500);
+            materials.put("폴리에스터", 700);
+            materials.put("거위털", 300);
+            materials.put("오리털", 400);
+            materials.put("플라스틱 지퍼", 1000);
+            application.setAttribute("materials", materials);
+        }
+
+        // 패딩 제작 처리
+        String paddingName = request.getParameter("paddingName");
+        String materialName = request.getParameter("materialName");
+        String quantityStr = request.getParameter("quantity");
+
+        if (paddingName != null && materialName != null && quantityStr != null) {
+            int quantity = Integer.parseInt(quantityStr);
+            if (materials.containsKey(materialName)) {
+                int currentStock = materials.get(materialName);
+                if (currentStock >= quantity) {
+                    materials.put(materialName, currentStock - quantity);
+                    out.println("<p style='text-align: center; color: green;'>패딩 \"" + paddingName + "\" 제작 완료! " + 
+                                materialName + " 남은 수량: " + materials.get(materialName) + "</p>");
+                } else {
+                    out.println("<p style='text-align: center; color: red;'>재고가 부족합니다! 현재 재고: " + currentStock + "</p>");
+                }
+            } else {
+                out.println("<p style='text-align: center; color: red;'>해당 자재가 존재하지 않습니다.</p>");
+            }
+        }
+    %>
+
+    <table>
+        <thead>
+            <tr>
+                <th>자재명</th>
+                <th>남은 재고</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                for (Map.Entry<String, Integer> entry : materials.entrySet()) {
+            %>
+                <tr>
+                    <td><%= entry.getKey() %></td>
+                    <td><%= entry.getValue() %></td>
+                </tr>
+            <%
+                }
+            %>
+        </tbody>
+    </table>
+</body>
+</html>

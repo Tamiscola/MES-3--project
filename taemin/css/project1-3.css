@@ -45,6 +45,8 @@ div{
 }
 #main_text1{
   margin: 10px auto 250px;
+  color: #212223;
+  text-shadow: 0.5px 0.5px  black;
 }
 input{
   width: 195px;
@@ -74,7 +76,7 @@ input{
   padding: 20px;
   width: 500px;
   font-style: italic;
-  color: black;
+  color:#212223;
   text-align: left;
   
 }
