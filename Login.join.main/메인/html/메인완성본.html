@@ -12,6 +12,7 @@ body {
   color: #333; /* 기본 텍스트 색상 변경 */
 }
 
+
 /* 상단 바 */
 .header {
   background-color: #7F8C8D; /* 상단 바 색상 변경 (회색) */
@@ -139,6 +140,46 @@ tr:nth-child(even) td {
   background-color: #34495e; /* 호버 효과 */
 }
 
+
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  bottom: 0;
+
+}
+
+.pagination button {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination button[disabled] {
+  background-color: #e9e9e9;
+  cursor: not-allowed;
+}
+
+.pagination .active {
+  background-color: #007BFF;
+  color: white;
+  border-color: #007BFF;
+}
+
+
+
   </style>
 </head>
 <body>
@@ -205,12 +246,11 @@ tr:nth-child(even) td {
               </tr>
               <!-- 필요시 다른 행 추가 -->
           </tbody>
-      </table>
-      </div>
-        
-      <!--<div class="side box">Right</div> 오른쪽 컨테이너만들기 풀지말기.-->
-    </div>
-    <!--<div class="footer box">Footer</div>-->
-  </div>
+        </table>
+        <div class="pagination">
+          <button id="prev" disabled>이전</button>
+          <div id="page-numbers"></div>
+          <button id="next">다음</button>
+        </div>
 </body>
 </html>
