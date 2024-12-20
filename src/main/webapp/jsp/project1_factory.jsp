@@ -16,7 +16,6 @@ if(userId == null) {
 	<% 
 }
 	%>
-%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -24,32 +23,39 @@ if(userId == null) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Factory Page</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/factory_page.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/project1_factory.css">
   <style>
   </style>
 </head>
 <body>
-  <div class="big_headbox">
-    <div class="big_headbox_position">
-      <div id="head_box">Natural Yak</div>
-      <div id="right_welcome"><%= userId %>님 어서오세요 <br>
-        <form id="Logout" action="./project1_logout.jsp" method="post">
-        	<button type="submit">Logout</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="leftbox">
-    <button type="button" class="class_box" id="material_management_button">자재 관리</button>
-    <button class="class_box" id="contact_management_button">연락처 관리</button>
-  </div>
-  <div class="above-table-space">
-    자재 관리 <!--여기에 버튼을 클릭하면 글자가 버튼누른 글자로 변하는 방식으로 변경-->
-  </div>
-  <div class="divider"></div>
-  <!-- 중앙 공백 공간 -->
-  <div id="content_area"></div>
+  <div class="parent">
+    <div class="header box"><h1>Natural Yak</h1>
+      <div class="header-right" >' '님 어서오세요<br>
+        <button class="logout_button"><strong>로그아웃</strong></button></div>
 
+    </div>
+    <div class="main">
+      <div class="side box">
+        <h1 class="side_so"></h1>
+        <button id="material_management_button" class="side_box1"><h3>자재 관리</h3></button>
+        <button id="contact_management_button" class="side_box1"><h3>연락처 관리</h3></button>
+        <button class="side_box1"><h3>테스트 용</h3></button>
+      </div>
+      <div  class="center box">
+        <div class="solid_box">
+          <div><h2>자재 관리</h2></div>
+          <div>
+          <input class="search_input" type="text"placeholder="검색..."><button class="search_button"></button>
+          </div>
+        </div>
+        <div class="table_button">
+          <button id="delete_button" class="table_button_delete">삭제</button>
+          <button id="edit_button" class="table_button_correction">수정</button>
+          <button id="add_button" class="table_button_update">추가</button>
+        </div>
+        <div id="content_area">
+        </div>
+       
 <% 
 Connection conn = null;
 try {
@@ -93,24 +99,17 @@ try {
  console.log("Supply Columns:", sup_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
-    // 자재 관리 버튼 클릭 이벤트
+    // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
       const contentArea = document.getElementById('content_area');
       // 테이블 생성
       contentArea.innerHTML = `
-    	  <td>
-    	    <div class="button-container">
-    	        <button id="add_button">추가</button>
-    	        <button id="edit_button">수정</button>
-    	        <button id="delete_button">삭제</button>
-    	    </div>
-    	    </td>  
-      	<table>
-      		<thead>
-      			<tr></tr>
-      		</thead>
-      		<tbody></tbody>
-      	</table>
+    	  <table>
+    		<thead>
+    			<tr></tr>
+    		</thead>
+    		<tbody></tbody>
+    	</table>
       `;
       
       const deleteButton = document.getElementById('delete_button');
@@ -276,18 +275,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    // 연락처 관리 테이블 불러오기
+    // 연락처 관리 테이블 불러오기  => id="sup_table"
     document.getElementById('contact_management_button').addEventListener('click', function() {
       const contentArea = document.getElementById('content_area');
       contentArea.className = 'content';
       contentArea.innerHTML = `
-    	  <td>
-    	    <div class="button-container">
-    	        <button id="add_button">추가</button>
-    	        <button id="edit_button">수정</button>
-    	        <button id="delete_button">삭제</button>
-    	    </div>
-    	    </td>  
         	<table>
         		<thead>
         			<tr></tr>
