@@ -388,9 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		  });
 	  });
 	  
-	  addButton.addEventListener("click", function() {
-		  location.href=`./factory_material_add.jsp`
-	  });
+	 
 	  
 	  // 행 버튼 동작
 	  // 삭제 버튼
@@ -412,6 +410,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		 }
 	  });
 	  
+	  
+	  // 추가 버튼
+	  addButton.addEventListener("click", function() {
+		  location.href=`./factory_material_add.jsp`
+	  });
+	  
+	 
 
 
     });
@@ -506,9 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
   	  });
   	  
   	  
-  	addButton.addEventListener("click", function() {
-		  location.href=`./factory_contact_add.jsp`
-	  });
+  	
   	  
   	  // 행 버튼 동작
 	  // 삭제 버튼
@@ -531,6 +534,15 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
     });
 })
+  
+  		// 추가 버튼
+  		addButton.addEventListener("click", function() {
+		  location.href=`./factory_sup_add.jsp`
+	  });
+  
+  		// 수정 버튼 
+  
+  
   </script>
   <%	DBManager.dbClose(conn, pstmt, null);
 		} catch (SQLException se) {
