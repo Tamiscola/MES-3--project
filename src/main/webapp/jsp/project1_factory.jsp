@@ -31,7 +31,7 @@ if(userId == null) {
 <body>
   <div class="big_headbox">
     <div class="big_headbox_position">
-      <div id="head_box1">Natural Yak</div>
+      <div id="head_box">Natural Yak</div>
       <div id="right_welcome"><%= userId %>님 어서오세요 <br>
         <form id="Logout" action="./project1_logout.jsp" method="post">
         	<button type="submit">Logout</button>
