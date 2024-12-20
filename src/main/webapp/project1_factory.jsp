@@ -226,6 +226,8 @@ tr:nth-child(even) {
   <div class="divider"></div>
   <!-- 중앙 공백 공간 -->
   <div id="content_area"></div>
+  
+  
 
 <% 
 Connection conn = null;
