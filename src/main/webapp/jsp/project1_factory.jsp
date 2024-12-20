@@ -225,34 +225,53 @@ document.addEventListener('DOMContentLoaded', function() {
 	  //수정 버튼
 	  
 	  editButton.addEventListener("click", function(){
-		 if (selectedRows.length == 0) {	// 선택한 행이 없을 시
-			 alert("항목을 선택해주세요.");
-		 	 console.log("No selected row");
-		 } else {
-			 if (confirm("수정하시겠습니까?")) {
-				 for (i = 1; i < selectedRows[0].children.length; i++) {  // NO 칼럼을 제외한 모든 <td> 셀 조회
-					const cell = selectedRows[0].children[i];
-				 	const originalValue = cell.textContent; 
-				 	
-				 	// input 필드 만들기
-				 	const input = document.createElement("input");
-				 	input.type = "text";
-				 	input.value = originalValue;
-				 	
-				 	// <td> content 를 input값으로 교체
-				 	cell.textContent = "";
-				 	cell.appendChild(input);
-				 	
-				    // Add event listener to save on Enter key press
-				 	input.addEventListener("keyup", function(event){ 
-				 		if (event.key === "Enter") {
-				 			cell.textContent = this.value;
-				 		}
-				 	});
+			 if (selectedRows.length == 0) {	// 선택한 행이 없을 시
+				 alert("항목을 선택해주세요.");
+			 	 console.log("No selected row");
+			 } else {
+				 console.log("row selected");
+				 if (confirm("수정하시겠습니까?")) {
+					 let e_selectedRows = selectedRows;
+					 console.log("e_selectedRows", e_selectedRows);
+					 
+					 const cells = [];
+					 const matNo = e_selectedRows[0].children[0].textContent;
+					 
+					 for (i = 1; i < e_selectedRows[0].children.length; i++) {  // NO 칼럼을 제외한 모든 <td> 셀 조회
+						const cell = e_selectedRows[0].children[i];
+					 	const originalValue = cell.textContent; 
+					 	
+					 	// input 필드 만들기
+					 	const input = document.createElement("input");
+					 	input.type = "text";
+					 	input.value = originalValue;
+					 	
+					 	// <td> content 를 input값으로 교체
+					 	cell.textContent = "";
+					 	cell.appendChild(input);
+					 	
+					    // Add event listener to save on Enter key press
+					 	input.addEventListener("keyup", function(event){ 
+					 		if (event.key === "Enter") {	// Enter 눌렀을 시
+					 			cell.textContent = this.value;
+					 			cells.push(cell.textContent);
+					 			
+					 			const anyInputsLeft = 
+					 				Array.from(e_selectedRows[0].children).some(cell =>
+					 				cell.querySelector('input'));
+					 			
+				 				if(!anyInputsLeft) {	// 마지막 <td> 수정이 끝날 시
+				 					if (confirm("수정을 마치시겠습니까?")) {
+					 					location.href = `./factory_material_edit.jsp?cells=` + encodeURIComponent(cells.join(',')) + `&matNo=` + matNo;
+					 				}
+				 				}
+					 			
+					 		}
+					 	});
+					 }
 				 }
 			 }
-		 }
-	  });
+		  });
 
 
     });
@@ -375,11 +394,14 @@ document.addEventListener('DOMContentLoaded', function() {
 			 } else {
 				 console.log("row selected");
 				 if (confirm("수정하시겠습니까?")) {
-					 const cells = [];
-					 const supNo = selectedRows[0].children[0].textContent;
+					 let e_selectedRows = selectedRows;
+					 console.log("e_selectedRows", e_selectedRows);
 					 
-					 for (i = 1; i < selectedRows[0].children.length; i++) {  // NO 칼럼을 제외한 모든 <td> 셀 조회
-						const cell = selectedRows[0].children[i];
+					 const cells = [];
+					 const supNo = e_selectedRows[0].children[0].textContent;
+					 
+					 for (i = 1; i < e_selectedRows[0].children.length; i++) {  // NO 칼럼을 제외한 모든 <td> 셀 조회
+						const cell = e_selectedRows[0].children[i];
 					 	const originalValue = cell.textContent; 
 					 	
 					 	// input 필드 만들기
@@ -398,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					 			cells.push(cell.textContent);
 					 			
 					 			const anyInputsLeft = 
-					 				Array.from(selectedRows[0].children).some(cell =>
+					 				Array.from(e_selectedRows[0].children).some(cell =>
 					 				cell.querySelector('input'));
 					 			
 				 				if(!anyInputsLeft) {	// 마지막 <td> 수정이 끝날 시
