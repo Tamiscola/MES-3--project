@@ -136,9 +136,7 @@ th {            /*헤드*/
   font-weight: bold;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
+
 /* 스크롤바 스타일 숨기기 */
 ::-webkit-scrollbar {
   display: none;

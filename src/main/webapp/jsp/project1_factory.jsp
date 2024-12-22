@@ -43,7 +43,7 @@ if(userId == null) {
       </div>
       <div  class="center box">
         <div class="solid_box">
-          <div><h2>자재 관리</h2></div>
+          <div><h2>공지 사항</h2></div>
           <div>
           <input class="search_input" type="text"placeholder="검색..."><button class="search_button"></button>
           </div>
@@ -55,7 +55,7 @@ if(userId == null) {
         </div>
         <div id="content_area">
         </div>
-       
+</body>
 <% 
 Connection conn = null;
 try {
@@ -99,8 +99,10 @@ try {
  console.log("Supply Columns:", sup_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
+	let selectedRows = [];
     // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
+      document.querySelector('.solid_box > div:first-child > h2').textContent = "자재 관리"
       const contentArea = document.getElementById('content_area');
       // 테이블 생성
       contentArea.innerHTML = `
@@ -180,21 +182,23 @@ document.addEventListener('DOMContentLoaded', function() {
       		
 	  <%}
 	  %>
-	  let selectedRows = [];
+	  
 	  
 	  //행 선택 동작
-	  document.querySelectorAll('tr').forEach(row => {
+	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
 		  row.addEventListener("click", function(event) {
 			  // 단일행 선택 동작
 			 if (selectedRows.includes(this)) {
 				// Deselect the row
 				selectedRows = selectedRows.filter(r => r != this);
-				this.style.backgroundColor = "";
+				this.classList.remove('selected');
+				console.log("selected Rows", selectedRows);
 			 }  else {
 				// Select the row 
-				selectedRows.forEach(r => r.style.backgroundColor = "");
+				selectedRows.forEach(r => r.classList.remove('selected'));
 				selectedRows = [this];
-				this.style.backgroundColor = "royalblue";
+				this.classList.add('selected');
+				console.log("selected Rows", this);
 			 }
 		  });
 	  });
@@ -277,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 연락처 관리 테이블 불러오기  => id="sup_table"
     document.getElementById('contact_management_button').addEventListener('click', function() {
+      document.querySelector('.solid_box > div:first-child > h2').textContent = "공급업체 연락처"
       const contentArea = document.getElementById('content_area');
       contentArea.className = 'content';
       contentArea.innerHTML = `
@@ -340,9 +345,9 @@ document.addEventListener('DOMContentLoaded', function() {
       		tbody.appendChild(tbody_tr);
         <%}
       rs.close();%>
-      let selectedRows = [];
+      
 
-  	  document.querySelectorAll('tr').forEach(row => {
+  	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
   		  row.addEventListener("click", function() {
   			 if (selectedRows.includes(this)) {
   				// Deselect the row
@@ -353,6 +358,7 @@ document.addEventListener('DOMContentLoaded', function() {
   				selectedRows.forEach(r => r.style.backgroundColor = "");
   				selectedRows = [this];
   				this.style.backgroundColor = "royalblue";
+  				console.log("selected Rows", selectedRows);
   			 }
   		  });
   	  });
