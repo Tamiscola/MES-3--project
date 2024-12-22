@@ -238,11 +238,14 @@ document.addEventListener('DOMContentLoaded', function() {
 					 console.log("e_selectedRows", e_selectedRows);
 					 
 					 const cells = [];
+					 const originalCells = [];
 					 const matNo = e_selectedRows[0].children[0].textContent;
+					 
 					 
 					 for (i = 1; i < e_selectedRows[0].children.length; i++) {  // NO 칼럼을 제외한 모든 <td> 셀 조회
 						const cell = e_selectedRows[0].children[i];
-					 	const originalValue = cell.textContent; 
+					 	const originalValue = cell.textContent;
+					 	originalCells.push(originalValue);
 					 	
 					 	// input 필드 만들기
 					 	const input = document.createElement("input");
@@ -268,7 +271,13 @@ document.addEventListener('DOMContentLoaded', function() {
 					 					location.href = `./factory_material_edit.jsp?cells=` + encodeURIComponent(cells.join(',')) + `&matNo=` + matNo;
 					 				}
 				 				}
-					 			
+					 		}
+					 		else if (event.key ==="Escape"){
+					 			Array.from(e_selectedRows[0].children).forEach((c, index) => {
+					 				if (index > 0) {		// skip 'NO' column
+					 					c.textContent = originalCells[index - 1];	// 243 줄에서 originalCells 는 NO 칼럼값이 push되지 않았다.
+					 				}
+					 			});
 					 		}
 					 	});
 					 }
@@ -347,21 +356,24 @@ document.addEventListener('DOMContentLoaded', function() {
       rs.close();%>
       
 
-  	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
-  		  row.addEventListener("click", function() {
-  			 if (selectedRows.includes(this)) {
-  				// Deselect the row
-  				selectedRows = selectedRows.filter(r => r != this);
-  				this.style.backgroundColor = "";
-  			 }  else {
-  				// Select the row 
-  				selectedRows.forEach(r => r.style.backgroundColor = "");
-  				selectedRows = [this];
-  				this.style.backgroundColor = "royalblue";
-  				console.log("selected Rows", selectedRows);
-  			 }
-  		  });
-  	  });
+      //행 선택 동작
+	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
+		  row.addEventListener("click", function(event) {
+			  // 단일행 선택 동작
+			 if (selectedRows.includes(this)) {
+				// Deselect the row
+				selectedRows = selectedRows.filter(r => r != this);
+				this.classList.remove('selected');
+				console.log("selected Rows", selectedRows);
+			 }  else {
+				// Select the row 
+				selectedRows.forEach(r => r.classList.remove('selected'));
+				selectedRows = [this];
+				this.classList.add('selected');
+				console.log("selected Rows", this);
+			 }
+		  });
+	  });
   	  
   	  // 행 버튼 동작
 	  // 삭제 버튼
@@ -394,23 +406,26 @@ document.addEventListener('DOMContentLoaded', function() {
 				 if (confirm("수정하시겠습니까?")) {
 					 let e_selectedRows = selectedRows;
 					 console.log("e_selectedRows", e_selectedRows);
-					 
-					 const cells = [];
+		
+					 const cells = [];											// DB 업데이트 참고변수
+					 const originalCells = [];
 					 const supNo = e_selectedRows[0].children[0].textContent;
 					 
 					 for (i = 1; i < e_selectedRows[0].children.length; i++) {  // NO 칼럼을 제외한 모든 <td> 셀 조회
 						const cell = e_selectedRows[0].children[i];
 					 	const originalValue = cell.textContent; 
-					 	
+					 	originalCells.push(originalValue);
+					 						 	
 					 	// input 필드 만들기
 					 	const input = document.createElement("input");
 					 	input.type = "text";
-					 	input.value = originalValue;
+					 	input.value = originalValue;			// Sets the current value
+					 	input.defaultValue = originalValue;		//  Explicitly sets the default 
 					 	
 					 	// <td> content 를 input값으로 교체
 					 	cell.textContent = "";
 					 	cell.appendChild(input);
-					 	
+
 					    // Add event listener to save on Enter key press
 					 	input.addEventListener("keyup", function(event){ 
 					 		if (event.key === "Enter") {	// Enter 눌렀을 시
@@ -426,10 +441,17 @@ document.addEventListener('DOMContentLoaded', function() {
 					 					location.href = `./factory_sup_edit.jsp?cells=` + encodeURIComponent(cells.join(',')) + `&supNo=` + supNo;
 					 				}
 				 				}
-					 			
 					 		}
-					 	});
+					 		else if (event.key ==="Escape"){
+					 			Array.from(e_selectedRows[0].children).forEach((c, index) => {
+					 				if (index > 0) {		// skip 'SUP_NO' column
+					 					c.textContent = originalCells[index - 1];	// 405 줄에서 originalCells 는 NO 칼럼값이 push되지 않았다.
+					 				}
+					 			});
+					 		}
+					 	}); 
 					 }
+
 				 }
 			 }
 		  });
