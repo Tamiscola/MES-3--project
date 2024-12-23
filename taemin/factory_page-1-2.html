@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factory Page</title>
+  <link rel="stylesheet" href="./css/factory_page.css">
+  <style>
+  </style>
+</head>
+<body>
+  <div class="big_headbox">
+    <div class="big_headbox_position">
+      <div id="head_box1">Natural Yak</div>
+      <div id="right_welcome">''어서오세요 <br>
+        <button id= logout_button>Logout</button>
+      </div>
+    </div>
+  </div>
+  <div class="leftbox">
+    <button class="class_box" id="material_management_button">자재 관리</button>
+    <button class="class_box" id="contact_management_button">연락처 관리</button>
+    <button class="class_box" id="tset_button">테스트 용</button>
+
+  </div>
+  <div class="above-table-space" id="above_table_space"></div>
+
+<!-- 검색창을 content_area 밖에 둔다 -->
+<div class="search_area">
+  <input type="text" id="search_input" placeholder="검색...">
+  <button id="search_img_button"></button>
+</div>
+
+<div id="content_area"></div>
+<footer>
+  <nav class="pagination">
+    <a href="#">&laquo;</a>
+    <a href="#">1</a>
+    <a class="active" href="#">2</a>
+    <a href="#">3</a>
+    <a href="#">4</a>
+    <a href="#">&raquo;</a>
+  </nav>
+</footer>
+
+  <script>
+// 자재 관리 버튼 클릭 이벤트
+document.getElementById('material_management_button').addEventListener('click', function() {
+  const aboveTableSpace = document.getElementById('above_table_space'); // 상단 텍스트 영역
+  aboveTableSpace.textContent = this.textContent; // 버튼 텍스트 가져와서 설정
+  const contentArea = document.getElementById('content_area');
+  contentArea.className = 'content';
+  contentArea.innerHTML = `
+    <td>
+      <div class="button-container">
+          <button id="add_button">추가</button>
+          <button id="edit_button">수정</button>
+          <button id="delete_button">삭제</button>
+      </div>
+    </td>  
+    <table>
+        <thead>
+          <tr>
+            <th>품목</th>
+            <th>수량</th>
+            <th>단가</th>
+            <th>합계</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>철판</td>
+            <td>50</td>
+            <td>1000</td>
+            <td>50000</td>
+          </tr>
+          <tr>
+            <td>볼트</td>
+            <td>200</td>
+            <td>50</td>
+            <td>10000</td>
+          </tr>
+          <tr>
+            <td>너트</td>
+            <td>300</td>
+            <td>30</td>
+            <td>9000</td>
+          </tr>
+        </tbody>
+    </table>
+  `;
+});
+
+// 연락처 관리 버튼 클릭 이벤트
+document.getElementById('contact_management_button').addEventListener('click', function() {
+  const aboveTableSpace = document.getElementById('above_table_space'); // 상단 텍스트 영역
+  aboveTableSpace.textContent = this.textContent; // 버튼 텍스트 가져와서 설정
+  const contentArea = document.getElementById('content_area');
+  contentArea.className = 'content';
+  contentArea.innerHTML = `
+    <td >
+      <div class="button-container">
+          <button id="add_button">추가</button>
+          <button id="edit_button">수정</button>
+          <button id="delete_button">삭제</button>
+      </div>
+    </td>  
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>전화번호</th>
+          <th>주소</th>
+          <th>이메일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>홍길동</td>
+          <td>010-1234-5678</td>
+          <td>서울시 강남구</td>
+          <td>hong@test.com</td>
+        </tr>
+        <tr>
+          <td>이순신</td>
+          <td>010-9876-5432</td>
+          <td>부산시 해운대구</td>
+          <td>lee@test.com</td>
+        </tr>
+        <tr>
+          <td>김철수</td>
+          <td>010-5555-1234</td>
+          <td>인천시 남동구</td>
+          <td>kim@test.com</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+});
+  </script>
+
+</body>
+</html>
