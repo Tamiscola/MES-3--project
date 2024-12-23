@@ -1,4 +1,4 @@
-package com;
+package taemin;
 
 public class SupplyContact {
 	private int sup_no;

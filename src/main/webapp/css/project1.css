@@ -6,7 +6,7 @@ header {
   
 }
 body{
-  background-image: url(./img/main_img.png);
+  background-image: url(../img/main_img.png);
   background-attachment: fixed;
   background-position: left top;
   background-size: cover;

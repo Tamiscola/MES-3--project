@@ -1,4 +1,4 @@
-package com;
+package taemin;
 
 public class MainMaterial {
 	private int no;
