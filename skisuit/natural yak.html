@@ -4,59 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <link rel="stylesheet" href="./css/natural.css">      
-    <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100vw
-            height: 100vh;
-            background-color: rgba(120, 146, 125, 0.671);
-        }
-
-        .box{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;    /*   가로축 중앙정렬 */
-            align-items: flex-start;        /*  세로축 중앙정렬  */
-            width: 34vw;
-            height: 45vh;
-            border: 1px solid black;
-            background-color: rgb(110, 199, 199) ;
-            flex-direction: column;
-        }
-
-        .center {
-            text-align: center;    /* 가운데 정렬 */
-        }
-        .justify {
-            text-align: justify;    /* 양쪽 정렬*/
-        }
-
-        .box div { 
-        margin: 10px;
-        }
-
-        button{
-            width: 440px;
-            height: 50px;
-        }
-        
-        .logo_natural_yak { background-color: white;
-        }
-
-        header > div {
-            margin-bottom: 30px;
-        }
-        h1 {
-            padding: 2px;
-            color: #fff;
-        }
-        
-    </style> 
-</head>    
+    <link rel="stylesheet" href="../skisuit/static/css/natural.css">      
+</head>
 <body>
     <div class="container">
         <div class="inner">
@@ -66,45 +15,37 @@
                 </a>
             </h1>
             <div class="content">
-                <div class="form_list">
-                    <div class="form_item user" id="divld"></div>
+                <form id="join" method="post" action="/user2/join/end" class="form">
+                    <input type="hidden" id="token_sjoin" name="token" value="wmikbo">
+                    <div class="form_content">
+                        <div class="form_setion">
+                    </div>
+                    <div class="form_list">
+                        <div class="form_item user" id="divld">
+                            <input type="text" id="id" name="id" placeholder="아이디" class="input" value="" maxlength="20" autocapitalize="off">
+                    </div>
+                    <div class="form_item lock password" id="divPasswd">
+                        <input type="password" id="pswd1" name="pswd1" placeholder="비밀번호" class="input" value maxlength="20" autocomplete="new-password">
+                    <div class="password_info">
+                        <em class="how_secure" id="secureLevel"></em>
+                        <button type="button" class="btn_show hide">
+                            <span class="blind">비밀번호 보기</span>
+                        </button>
+                    </div>
+                    </div>
                 </div>
-            </div>
-        <div class="section-title">
-            회원 가입을 환영합니다
+                <div class="form_list">
+                    <div class="form_item user" id="divName">
+                        <input type="text" id="name" name="name" placeholder="이름" class="input" value maxlength="40">
+                    </div>
+                    </div>
+                </div>
+                <div class="btn_submlt_wrap" id="divBtnJoin" style="display: none;">
+                    <button type="button" class="btn_submlt" id="btn join">가입하기</button>
+                </div>
+            </form>
         </div>
-        
-        <form>
-            <fieldset>
-                <legend>사용자 정보</legend>
-                <ul>
-                    <li>
-                        <label for="uid">아이디</label>
-                        <input type="text" id="uid">
-                    </li>
-                    <li>
-                        <label for="umail">이메일</label>
-                        <input type="email" id="umail">
-                    </li>
-                    <li>
-                        <label for="pwd1">비밀번호</label>
-                        <input type="password" id="pw">
-                    </li>
-                    <li>
-                        <label for="pwd2">비밀번호 확인</label>
-                        <input type="password" id="pw_check">
-                    </li>
-                    <li>
-                        <label for="user-name">이름</label>
-                        <input type="text" id="user-name">
-                    </li>
-                </ul>
-            </fieldset>
-        </form>
-
-        <button type="submlt">가입</button>
     </div>
+</div>
 </body>
 </html>
-
-    
