@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })
   
   		// 추가 버튼
-  		addButton.addEventListener("click", function() {
+  	  addButton.addEventListener("click", function() {
 		  location.href=`./factory_sup_add.jsp`
 	  });
   
