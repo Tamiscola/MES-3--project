@@ -39,13 +39,13 @@ if(userId == null) {
         <h1 class="side_so"></h1>
         <button id="material_management_button" class="side_box1"><h3>자재 관리</h3></button>
         <button id="contact_management_button" class="side_box1"><h3>연락처 관리</h3></button>
-        <button class="side_box1"><h3>테스트 용</h3></button>
+        <button id="announce_button" class="side_box1"><h3>테스트 용</h3></button>
       </div>
       <div  class="center box">
         <div class="solid_box">
           <div><h2>공지 사항</h2></div>
-          <div>
-          <input class="search_input" type="text"placeholder="검색..."><button class="search_button"></button>
+          <div>     
+       		<input class="search_input" type="text"placeholder="검색..." name="search_input"><button class="search_button"></button>
           </div>
         </div>
         <div class="table_button">
@@ -75,6 +75,7 @@ try {
 	
 	int n_cols = rsmd.getColumnCount();
 	int n_cols2 = rsmd2.getColumnCount();
+	String searchInput = "";
 %>
  <script>
  // 주재료, 공급업체 테이블 칼럼 이름 불러오기
@@ -99,11 +100,15 @@ try {
  console.log("Supply Columns:", sup_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
-	let selectedRows = [];
+	let selectedRows = []
+	let searchInput = document.querySelector('.search_input');
+    const searchButton = document.querySelector('.search_button');
+
     // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
       document.querySelector('.solid_box > div:first-child > h2').textContent = "자재 관리"
       const contentArea = document.getElementById('content_area');
+      
       // 테이블 생성
       contentArea.innerHTML = `
     	  <table>
@@ -182,7 +187,24 @@ document.addEventListener('DOMContentLoaded', function() {
       		
 	  <%}
 	  %>
-	  
+	  // 검색 기능
+      searchButton.addEventListener("click", function(){
+    	  let searchWord = searchInput.value;
+    	  console.log("searchWord : " + searchWord);
+    	// Send an AJAX request to search_handler.jsp
+    	    fetch(`material_search_handler.jsp?searchWord=` + encodeURIComponent(searchWord))
+    	        .then((response) => response.text()) // Expecting raw HTML or JSON from the server
+    	        .then((data) => {
+    	            // Update the content area with the response
+    	            const contentArea = document.getElementById("content_area");
+    	            contentArea.innerHTML = data; // Dynamically inject the response into the page
+    	        })
+    	        .catch((error) => {
+    	            console.error("Error fetching data:", error);
+    	        });
+    	 
+      });
+
 	  
 	  //행 선택 동작
 	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
@@ -203,8 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		  });
 	  });
 	  
-	  // 행 버튼 동작
-	  // 삭제 버튼
+	  
+	  // 삭제 버튼 동작
 	  
 	  deleteButton.addEventListener("click", function(){
 		 if (selectedRows.length == 0) {	// 선택한 행이 없을 시
@@ -224,6 +246,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
 	  
 	  // 추가 버튼
+	  addButton.addEventListener("click", function(){
+		  
+	  });
 	  
 	  //수정 버튼
 	  
@@ -354,6 +379,25 @@ document.addEventListener('DOMContentLoaded', function() {
       		tbody.appendChild(tbody_tr);
         <%}
       rs.close();%>
+      
+   	  // 검색 기능
+      searchButton.addEventListener("click", function(){
+    	  let searchWord = searchInput.value;
+    	  console.log("searchWord : " + searchWord);
+    	// Send an AJAX request to search_handler.jsp
+    	    fetch(`sup_search_handler.jsp?searchWord=` + encodeURIComponent(searchWord))
+    	        .then((response) => response.text()) // Expecting raw HTML or JSON from the server
+    	        .then((data) => {
+    	            // Update the content area with the response
+    	            const contentArea = document.getElementById("content_area");
+    	            contentArea.innerHTML = data; // Dynamically inject the response into the page
+    	        })
+    	        .catch((error) => {
+    	            console.error("Error fetching data:", error);
+    	        });
+    	 
+      });
+
       
 
       //행 선택 동작
