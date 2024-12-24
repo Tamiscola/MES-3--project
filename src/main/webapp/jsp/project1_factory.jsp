@@ -69,11 +69,8 @@ if(userId == null) {
         <h1 class="side_so"></h1>
         <button id="material_management_button" class="side_box1"><h3>자재 관리</h3></button>
         <button id="contact_management_button" class="side_box1"><h3>연락처 관리</h3></button>
-<<<<<<< HEAD
-        <button id="announce_button" class="side_box1"><h3>테스트 용</h3></button>
-=======
         <button id="announcement_management_button" class="side_box1"class="side_box1"><h3>공지사항</h3></button>
->>>>>>> origin/jiyeon
+        
       </div>
       <div  class="center box">
         <div class="solid_box">
@@ -89,6 +86,8 @@ if(userId == null) {
         </div>
         <div id="content_area">
         </div>
+        <div id="page_buttons">
+        </div>
 </body>
 <% 
 Connection conn = null;
@@ -99,9 +98,9 @@ try {
 	String sup_sql = "SELECT * FROM SUPPLY_CONTACT";
 	String announcement_sql = "SELECT * FROM ANNOUNCEMENT";
 
-    PreparedStatement pstmt = conn.prepareStatement(mat_sql);
-    PreparedStatement pstmt2 = conn.prepareStatement(sup_sql);
-    PreparedStatement pstmt3 = conn.prepareStatement(announcement_sql);
+    PreparedStatement pstmt = conn.prepareStatement(mat_sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    PreparedStatement pstmt2 = conn.prepareStatement(sup_sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    PreparedStatement pstmt3 = conn.prepareStatement(announcement_sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
     
 	ResultSet rs = pstmt.executeQuery(mat_sql);
 	ResultSet rs2 = pstmt2.executeQuery(sup_sql);
@@ -113,11 +112,24 @@ try {
 	
 	int n_cols = rsmd.getColumnCount();
 	int n_cols2 = rsmd2.getColumnCount();
-<<<<<<< HEAD
-	String searchInput = "";
-=======
 	int n_cols3 = rsmd3.getColumnCount();
->>>>>>> origin/jiyeon
+	
+	// 페이지 만들기용 변수들
+	int matRows = 0;
+	int supRows = 0;
+	int annRows = 0;
+	
+	int matPages = 0;
+	int supPages = 0;
+	int annPages = 0;
+	
+	int rowsPerPage = 10;
+	
+	// Count total rows
+	rs.last();
+	matRows = rs.getRow();	// retrieves the current row number, in this case, total number of rows in the ResultSet.
+	matPages = Math.ceilDiv(matRows, rowsPerPage);
+  	System.out.println("matPages :" + matPages);
 %>
  <script>
  // 주재료, 공급업체 테이블 칼럼 이름 불러오기
@@ -149,26 +161,26 @@ try {
  }
  %>
  
- 
- 
  console.log("Material Columns:", mat_col_names);
  console.log("Supply Columns:", sup_col_names);
  console.log("Announcement Columns:", announcement_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
-<<<<<<< HEAD
 	let selectedRows = []
 	let searchInput = document.querySelector('.search_input');
     const searchButton = document.querySelector('.search_button');
+    let pageButtonsBox = document.querySelector('#page_buttons');
+    let pageNumbers = [];
+    
+	// 페이지 버튼 기능 
+    for (let p = 1; p <= <%= matPages %>; p++) {
+		  let page = document.createElement('button');
+		  page.textContent = p;
+		  pageNumbers.push(page.textContent);
+		  pageButtonsBox.appendChild(page);
+	  }
+    
 
-=======
-	
-	
-	
-	
-	
-	let selectedRows = [];
->>>>>>> origin/jiyeon
     // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
       document.querySelector('.solid_box > div:first-child > h2').textContent = "자재 관리"
@@ -192,67 +204,42 @@ document.addEventListener('DOMContentLoaded', function() {
       //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
+      let showingRowsNum = 10;
       
-      
+      // <th> 칼럼 행 생성
       for (let i = 0; i < mat_col_names.length; i++) {
     	  let th = document.createElement('th');
     	  th.appendChild(document.createTextNode(mat_col_names[i]));
     	  tr.appendChild(th);
       }
       
+      // <tr> 본문 행 생성
       let tbody_tr;
       let tbody_td;
+      let totalRows = [];
       
-      <% while (rs.next()) { 
-      		MainMaterial mm = new MainMaterial();
-      		mm.setNo(rs.getInt("NO"));
-      		mm.setColor(rs.getString("COLOR"));
-      		mm.setQuantity(rs.getInt("QUANTITY"));
-      		mm.setMaterial(rs.getString("MATERIAL"));
-      		mm.setDefection(rs.getString("DEFECTION"));
-      		mm.setWaterProof(rs.getString("WATERPROOF"));
-      		mm.setWindProof(rs.getString("WINDPROOF"));
-      		mm.setSupplyCompany(rs.getString("SUPPLY_COMPANY"));
-      		%>
-      		
-      		tbody_tr = document.createElement('tr');
-			
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getNo()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getColor()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getQuantity()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getMaterial()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getDefection()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getWaterProof()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getWindProof()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= mm.getSupplyCompany()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody.appendChild(tbody_tr);
-      		
-	  <%}
-	  %>
+      document.querySelectorAll('#page_buttons > button').forEach(btn => {
+    	  btn.addEventListener("click", function() {
+    		  console.log("Button clicked:", btn.textContent);
+    	      fetch('material_table.jsp?page=' + btn.textContent)
+    	      	.then((response) => response.text())
+    	      	.then((data) => {
+    	      		// Update the content area with the response
+    	      		contentArea.innerHTML = data;
+    	      		addRowEventListeners();
+    	      		
+    	      	})
+    	      	.catch((error) => {
+    		    	            console.error("Error fetching data:", error);
+    		    	        });
+    	  });
+      });
+
+
+
+	  
+    
+	  
 	  // 검색 기능
       searchInput.addEventListener("keyup", function(event){
     	  if (event.key === "Enter") {
@@ -275,23 +262,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	  
 	  //행 선택 동작
-	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
-		  row.addEventListener("click", function(event) {
-			  // 단일행 선택 동작
-			 if (selectedRows.includes(this)) {
-				// Deselect the row
-				selectedRows = selectedRows.filter(r => r != this);
-				this.classList.remove('selected');
-				console.log("selected Rows", selectedRows);
-			 }  else {
-				// Select the row 
-				selectedRows.forEach(r => r.classList.remove('selected'));
-				selectedRows = [this];
-				this.classList.add('selected');
-				console.log("selected Rows", this);
-			 }
+	  function addRowEventListeners() {
+		  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
+			  row.addEventListener("click", function(event) {
+				  // 단일행 선택 동작
+				 if (selectedRows.includes(this)) {
+					// Deselect the row
+					selectedRows = selectedRows.filter(r => r != this);
+					this.classList.remove('selected');
+					console.log("selected Rows", selectedRows);
+				 }  else {
+					// Select the row 
+					selectedRows.forEach(r => r.classList.remove('selected'));
+					selectedRows = [this];
+					this.classList.add('selected');
+					console.log("selected Rows", this);
+				 }
+			  });
 		  });
-	  });
+	  }
 	  
 	  
 	  // 삭제 버튼 동작
@@ -314,18 +303,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
 	  
 	  // 추가 버튼
-<<<<<<< HEAD
-	  addButton.addEventListener("click", function(){
-		  
-	  });
-=======
+
 	addButton.addEventListener("click", function(){
 		location.href = "factory_material_add.jsp"
 	});
-			
-	  
-	  
->>>>>>> origin/jiyeon
+
 	  
 	  //수정 버튼
 	  
@@ -420,6 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let tbody_td;
       
       <% while (rs2.next()) { 
+    	  	supRows += 1;
       		SupplyContact sp = new SupplyContact();
       		sp.setSup_no(rs2.getInt("SUP_NO"));
       		sp.setSup_name(rs2.getString("SUP_NAME"));
@@ -621,6 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         <% 
         while (rs3.next()) { 
+        	annRows += 1;
             Announcement an = new Announcement();
             an.setNo(rs3.getInt("NO"));
             an.setWriter(rs3.getString("WRITER"));
