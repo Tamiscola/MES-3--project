@@ -1,45 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="taemin.DBManager" %>
 
 <%
-    Connection conn = null;
-	PreparedStatement pstmt = null;
-   
+    String color = request.getParameter("color");
+	Integer quantity = null;    
+	String material = request.getParameter("material");
+	Integer defection = null;    
+	String waterproof = request.getParameter("waterproof");
+    String windproof = request.getParameter("windproof");
+    String supply_company = request.getParameter("supply_company");
+
+    
+    
+
     try {
-        conn = DBManager.getDBConnection();
-
-        String color = request.getParameter("color");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String material = request.getParameter("material");
-        int defection = Integer.parseInt(request.getParameter("defection"));
-        String waterproof = request.getParameter("waterproof");
-        String windproof = request.getParameter("windproof");
-        String supply_company = request.getParameter("supply_company");
-
-        String sql = "INSERT INTO main_material(no, color, quantity, material, defection, waterproof, windproof, supply_company) "
-                   + "VALUES (seq_main_material.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
-
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, color);
-        pstmt.setInt(2, quantity);
-        pstmt.setString(3, material);
-        pstmt.setInt(4, defection);
-        pstmt.setString(5, waterproof);
-        pstmt.setString(6, windproof);
-        pstmt.setString(7, supply_company);
-
-        int rows = pstmt.executeUpdate();
-       
-
-    } catch (Exception e) {
+        quantity = Integer.parseInt(request.getParameter("quantity"));
+        defection = Integer.parseInt(request.getParameter("defection"));
+    } catch (NumberFormatException e) {
+    	e.printStackTrace();
         
-        e.printStackTrace();
-    } finally {
-        
-        DBManager.dbClose(conn, pstmt, null);
+    }
+
+    if (color != null && material != null && waterproof != null && windproof != null && supply_company != null && quantity != null && defection != null) {
+        Connection conn = null;
+        PreparedStatement checkPstmt = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = DBManager.getDBConnection();
+
+            
+            String mat_checkSql = "SELECT material FROM main_material WHERE material = ?";
+            checkPstmt = conn.prepareStatement(mat_checkSql);
+            checkPstmt.setString(1, material);
+            rs = checkPstmt.executeQuery();
+
+            if (rs.next()) {
+                %>
+                <script>
+                    alert("중복");
+                </script>
+                <%
+            } else {
+                
+                String mat_insertSql = "INSERT INTO main_material(no, color, quantity, material, defection, waterproof, windproof, supply_company) "
+                                 + "VALUES (seq_main_material.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
+                pstmt = conn.prepareStatement(mat_insertSql);
+                pstmt.setString(1, color);
+                pstmt.setInt(2, quantity);
+                pstmt.setString(3, material);
+                pstmt.setInt(4, defection);
+                pstmt.setString(5, waterproof);
+                pstmt.setString(6, windproof);
+                pstmt.setString(7, supply_company);
+                pstmt.executeUpdate();
+
+                %>
+                <script>
+                    alert("완료");
+                    window.close();
+                </script>
+                <%
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+            out.println("Error: " + se.getMessage());
+        } finally {
+            DBManager.dbClose(conn, checkPstmt, rs);
+            DBManager.dbClose(null, pstmt, null);
+        }
     }
 %>
 
@@ -51,19 +82,25 @@
     <title>등록</title>
 </head>
 <body>
-    
-    
-    <form id="form1" action="project1_factory_material_add.jsp" method="POST">
-        <input type="text" name="color" placeholder="Color" required>
-        <input type="number" name="quantity" placeholder="Quantity" required>
-        <input type="text" name="material" placeholder="Material" required>
-        <input type="number" name="defection" placeholder="Defection" required>
-        <input type="text" name="waterproof" placeholder="Waterproof" required>
-        <input type="text" name="windproof" placeholder="Windproof" required>
-        <input type="text" name="supply_company" placeholder="Supply Company" required>
+    <h1>자재 등록</h1>
+    <form id="form1" action="factory_material_add.jsp" method="POST">
+        <input type="text" name="color" placeholder="color" required>
+        <input type="number" name="quantity" placeholder="quantity" required>
+        <input type="text" name="material" placeholder="material" required>
+        <input type="number" name="defection" placeholder="defection" required>
+        <input type="text" name="waterproof" placeholder="waterproof" required>
+        <input type="text" name="windproof" placeholder="windproof" required>
+        <input type="text" name="supply_company" placeholder="supply_company" required>
+        <br>
         <button type="submit">등록</button>
+        
+        
     </form>
-
+    <script>
+    
+	  });
+    
+    </script>
     
 </body>
 </html>
