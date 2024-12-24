@@ -76,9 +76,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-</head>
-<style>
-    /* 전체 페이지 스타일 */
+    <link rel="stylesheet" href="./css/join.css">
+    <style>
+        /* 전체 페이지 스타일 */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -167,7 +167,10 @@
       font-weight: bold;
       color: #ecf0f1;
     }
-</style>
+    </style>
+    
+</head>
+
 <body>
     <div id="new_main_concontainer">
     <h1 id="new_main_rogo">Natural Yak</h1>
