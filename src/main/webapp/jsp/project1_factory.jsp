@@ -148,11 +148,6 @@ try {
  console.log("Announcement Columns:", announcement_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
-	
-	
-	
-	
-	
 	let selectedRows = [];
     // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
@@ -171,7 +166,15 @@ document.addEventListener('DOMContentLoaded', function() {
       const deleteButton = document.getElementById('delete_button');
       const addButton = document.getElementById('add_button');
       const editButton = document.getElementById('edit_button');
-      const logoutButton = document.getElementById('logout_button');
+      
+      
+      logoutButton.addEventListener("click", function(){
+    	
+  		location.href = "/project1_logout.jsp"
+  		});
+      
+      
+      
       
       //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
@@ -187,7 +190,13 @@ document.addEventListener('DOMContentLoaded', function() {
       let tbody_tr;
       let tbody_td;
       
+      
+      
+      
+      
       <% while (rs.next()) { 
+    	  
+    	  
       		MainMaterial mm = new MainMaterial();
       		mm.setNo(rs.getInt("NO"));
       		mm.setColor(rs.getString("COLOR"));
@@ -593,7 +602,14 @@ document.addEventListener('DOMContentLoaded', function() {
     %>
 
       });
+    
+    //로그아웃
+    const logoutButton = document.getElementById('logout_button');
+	logoutButton.addEventListener("click", function() {
+		location.href = "project1_logout.jsp"
+		});
     })
+    
   </script>
   <%	DBManager.dbClose(conn, pstmt, null);
 		} catch (SQLException se) {
