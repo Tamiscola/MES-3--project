@@ -97,9 +97,6 @@
         
     </form>
     <script>
-    
-	  });
-    
     </script>
     
 </body>

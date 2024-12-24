@@ -10,6 +10,7 @@
 	Connection conn = null;
 	String inputId = request.getParameter("id"); // Get ID from request
 	String inputPw = request.getParameter("password"); // Get password from request
+	
 	boolean loginSuccessful = false; // To track login status
 	
 	try {
