@@ -188,20 +188,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	  <%}
 	  %>
 	  // 검색 기능
-      searchButton.addEventListener("click", function(){
-    	  let searchWord = searchInput.value;
-    	  console.log("searchWord : " + searchWord);
-    	// Send an AJAX request to search_handler.jsp
-    	    fetch(`material_search_handler.jsp?searchWord=` + encodeURIComponent(searchWord))
-    	        .then((response) => response.text()) // Expecting raw HTML or JSON from the server
-    	        .then((data) => {
-    	            // Update the content area with the response
-    	            const contentArea = document.getElementById("content_area");
-    	            contentArea.innerHTML = data; // Dynamically inject the response into the page
-    	        })
-    	        .catch((error) => {
-    	            console.error("Error fetching data:", error);
-    	        });
+      searchInput.addEventListener("keyup", function(event){
+    	  if (event.key === "Enter") {
+	    	  let searchWord = searchInput.value;
+	    	  console.log("searchWord : " + searchWord);
+	    	// Send an AJAX request to search_handler.jsp
+	    	    fetch(`material_search_handler.jsp?searchWord=` + encodeURIComponent(searchWord))
+	    	        .then((response) => response.text()) // Expecting raw HTML or JSON from the server
+	    	        .then((data) => {
+	    	            // Update the content area with the response
+	    	            const contentArea = document.getElementById("content_area");
+	    	            contentArea.innerHTML = data; // Dynamically inject the response into the page
+	    	        })
+	    	        .catch((error) => {
+	    	            console.error("Error fetching data:", error);
+	    	        });
+    	  }
     	 
       });
 
@@ -381,20 +383,22 @@ document.addEventListener('DOMContentLoaded', function() {
       rs.close();%>
       
    	  // 검색 기능
-      searchButton.addEventListener("click", function(){
-    	  let searchWord = searchInput.value;
-    	  console.log("searchWord : " + searchWord);
-    	// Send an AJAX request to search_handler.jsp
-    	    fetch(`sup_search_handler.jsp?searchWord=` + encodeURIComponent(searchWord))
-    	        .then((response) => response.text()) // Expecting raw HTML or JSON from the server
-    	        .then((data) => {
-    	            // Update the content area with the response
-    	            const contentArea = document.getElementById("content_area");
-    	            contentArea.innerHTML = data; // Dynamically inject the response into the page
-    	        })
-    	        .catch((error) => {
-    	            console.error("Error fetching data:", error);
-    	        });
+      searchInput.addEventListener("keyup", function(event){
+    	  if (event.key === "Enter") {
+	    	  let searchWord = searchInput.value;
+	    	  console.log("searchWord : " + searchWord);
+	    	// Send an AJAX request to search_handler.jsp
+	    	    fetch(`sup_search_handler.jsp?searchWord=` + encodeURIComponent(searchWord))
+	    	        .then((response) => response.text()) // Expecting raw HTML or JSON from the server
+	    	        .then((data) => {
+	    	            // Update the content area with the response
+	    	            const contentArea = document.getElementById("content_area");
+	    	            contentArea.innerHTML = data; // Dynamically inject the response into the page
+	    	        })
+	    	        .catch((error) => {
+	    	            console.error("Error fetching data:", error);
+	    	        });
+    	  }
     	 
       });
 
