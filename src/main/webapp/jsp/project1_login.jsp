@@ -38,6 +38,7 @@
 	    	%><script> alert('Wrong Id or Password')</script> <%
 	    }
 	    
+	    
 	} catch (SQLException se) {
 	    se.printStackTrace();
 	    out.println("<p>Error: " + se.getMessage() + "</p>");
