@@ -4,10 +4,40 @@
 <%@ page import="taemin.DBManager" %>
 <%@ page import="taemin.MainMaterial" %>
 <%@ page import="taemin.SupplyContact" %>
+<%@ page import="taemin.Announcement" %>
+
+
 
 <%
 
 String userId = (String)session.getAttribute("userId");
+String userName = null;
+
+
+try{
+	Connection conn = DBManager.getDBConnection();
+String nmsql = "SELECT name FROM login WHERE id = ?";
+PreparedStatement nmpstmt = conn.prepareStatement(nmsql);
+nmpstmt.setString(1, userId);
+
+ResultSet rs10 = nmpstmt.executeQuery();
+if(rs10.next()) {
+	session.setAttribute("userName", rs10.getString("name"));
+	
+	
+}
+	rs10.close();
+	nmpstmt.close();
+	
+} catch (Exception e) {
+	e.printStackTrace();
+}
+
+
+
+
+
+
 if(userId == null) {
 	%>
 	<script>
@@ -30,8 +60,8 @@ if(userId == null) {
 <body>
   <div class="parent">
     <div class="header box"><h1>Natural Yak</h1>
-      <div class="header-right" >' '님 어서오세요<br>
-        <button class="logout_button"><strong>로그아웃</strong></button></div>
+      <div class="header-right" ><%= session.getAttribute("userName") %>님 어서오세요<br>
+        <button id="logout_button" class="logout_button"><strong>로그아웃</strong></button></div>
 
     </div>
     <div class="main">
@@ -39,7 +69,11 @@ if(userId == null) {
         <h1 class="side_so"></h1>
         <button id="material_management_button" class="side_box1"><h3>자재 관리</h3></button>
         <button id="contact_management_button" class="side_box1"><h3>연락처 관리</h3></button>
+<<<<<<< HEAD
         <button id="announce_button" class="side_box1"><h3>테스트 용</h3></button>
+=======
+        <button id="announcement_management_button" class="side_box1"class="side_box1"><h3>공지사항</h3></button>
+>>>>>>> origin/jiyeon
       </div>
       <div  class="center box">
         <div class="solid_box">
@@ -63,24 +97,34 @@ try {
 	
 	String mat_sql = "SELECT * FROM MAIN_MATERIAL";
 	String sup_sql = "SELECT * FROM SUPPLY_CONTACT";
+	String announcement_sql = "SELECT * FROM ANNOUNCEMENT";
 
     PreparedStatement pstmt = conn.prepareStatement(mat_sql);
     PreparedStatement pstmt2 = conn.prepareStatement(sup_sql);
+    PreparedStatement pstmt3 = conn.prepareStatement(announcement_sql);
     
 	ResultSet rs = pstmt.executeQuery(mat_sql);
 	ResultSet rs2 = pstmt2.executeQuery(sup_sql);
+	ResultSet rs3 = pstmt3.executeQuery(announcement_sql);
 	
 	ResultSetMetaData rsmd = rs.getMetaData();
 	ResultSetMetaData rsmd2 = rs2.getMetaData();
+	ResultSetMetaData rsmd3 = rs3.getMetaData();
 	
 	int n_cols = rsmd.getColumnCount();
 	int n_cols2 = rsmd2.getColumnCount();
+<<<<<<< HEAD
 	String searchInput = "";
+=======
+	int n_cols3 = rsmd3.getColumnCount();
+>>>>>>> origin/jiyeon
 %>
  <script>
  // 주재료, 공급업체 테이블 칼럼 이름 불러오기
  let mat_col_names = [];
  let sup_col_names = [];
+ let announcement_col_names = [];
+ 
  <% 
  for (int j = 1; j <= n_cols; j++) {
  %>
@@ -96,14 +140,35 @@ try {
  <%
  }
  %>
+ 
+ <% 
+ for (int l = 1; l <= n_cols3; l++) {
+ %>
+ 	announcement_col_names.push("<%= rsmd3.getColumnName(l) %>");
+ <%
+ }
+ %>
+ 
+ 
+ 
  console.log("Material Columns:", mat_col_names);
  console.log("Supply Columns:", sup_col_names);
+ console.log("Announcement Columns:", announcement_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
 	let selectedRows = []
 	let searchInput = document.querySelector('.search_input');
     const searchButton = document.querySelector('.search_button');
 
+=======
+	
+	
+	
+	
+	
+	let selectedRows = [];
+>>>>>>> origin/jiyeon
     // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
       document.querySelector('.solid_box > div:first-child > h2').textContent = "자재 관리"
@@ -122,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const deleteButton = document.getElementById('delete_button');
       const addButton = document.getElementById('add_button');
       const editButton = document.getElementById('edit_button');
+      const logoutButton = document.getElementById('logout_button');
       
       //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
@@ -248,9 +314,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
 	  
 	  // 추가 버튼
+<<<<<<< HEAD
 	  addButton.addEventListener("click", function(){
 		  
 	  });
+=======
+	addButton.addEventListener("click", function(){
+		location.href = "factory_material_add.jsp"
+	});
+			
+	  
+	  
+>>>>>>> origin/jiyeon
 	  
 	  //수정 버튼
 	  
@@ -443,6 +518,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		 }
 	  });
   	  
+	  // 추가 버튼
+	  addButton.addEventListener("click", function(){
+		location.href = "factory_sup_add.jsp"
+	});
+	 
+  	  
   	  // 수정 버튼
 	  
 	  editButton.addEventListener("click", function(){
@@ -504,7 +585,77 @@ document.addEventListener('DOMContentLoaded', function() {
 			 }
 		  });
     });
-})
+    
+    
+    //공지사항
+    document.getElementById('announcement_management_button').addEventListener('click', function() {
+        document.querySelector('.solid_box > div:first-child > h2').textContent = "공지사항"
+        
+      
+      
+        const contentArea = document.getElementById('content_area');
+        contentArea.className = 'content';
+        contentArea.innerHTML = `
+          	<table>
+          		<thead>
+          			<tr></tr>
+          		</thead>
+          		<tbody></tbody>
+          	</table>
+          `;
+          let tr = document.querySelector('thead tr');
+        const tbody = document.querySelector('tbody');
+     
+        
+        
+        
+        
+        for (let l = 0; l < announcement_col_names.length; l++) {
+      	  let th = document.createElement('th');
+      	  th.appendChild(document.createTextNode(announcement_col_names[l]));
+      	  tr.appendChild(th);
+        }
+        
+        let tbody_tr;
+        let tbody_td;
+        
+        <% 
+        while (rs3.next()) { 
+            Announcement an = new Announcement();
+            an.setNo(rs3.getInt("NO"));
+            an.setWriter(rs3.getString("WRITER"));
+            an.setContent(rs3.getString("CONTENT"));
+          
+            
+            
+    %>
+            tbody_tr = document.createElement('tr');
+            
+            tbody_td = document.createElement('td');
+            tbody_td.appendChild(document.createTextNode("<%= an.getNo()%>"));
+            tbody_tr.appendChild(tbody_td);
+
+            tbody_td = document.createElement('td');
+            tbody_td.appendChild(document.createTextNode("<%= an.getWriter()%>"));
+            tbody_tr.appendChild(tbody_td);
+            
+            tbody_td = document.createElement('td');
+            tbody_td.appendChild(document.createTextNode("<%= an.getContent()%>"));
+            tbody_tr.appendChild(tbody_td);
+            
+            
+            
+            
+
+            
+            
+            tbody.appendChild(tbody_tr);
+    <% } 
+        rs3.close();
+    %>
+
+      });
+    })
   </script>
   <%	DBManager.dbClose(conn, pstmt, null);
 		} catch (SQLException se) {

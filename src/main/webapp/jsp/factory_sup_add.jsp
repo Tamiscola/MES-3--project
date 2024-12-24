@@ -68,12 +68,18 @@
 </head>
 <body>
     <h1>연락처 등록</h1>
-    <form id="form1" action="factory_contact_add.jsp" method="POST">
+    <form id="form1" action="factory_sup_add.jsp" method="POST">
         <input type="text" name="sup_name" placeholder="공급업체 이름" required>
         <input type="text" name="sup_phone" placeholder="전화번호" required>
         <input type="text" name="sup_address" placeholder="주소" required>
         <input type="text" name="sup_email" placeholder="이메일" required>
         <button type="submit">등록</button>
+        
     </form>
+     <script>
+    
+	  
+    
+    </script>
 </body>
 </html>
