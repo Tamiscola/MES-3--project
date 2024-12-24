@@ -130,6 +130,18 @@ try {
 	matRows = rs.getRow();	// retrieves the current row number, in this case, total number of rows in the ResultSet.
 	matPages = Math.ceilDiv(matRows, rowsPerPage);
   	System.out.println("matPages :" + matPages);
+  	
+ // Count total rows
+ 	rs2.last();
+ 	supRows = rs2.getRow();	// retrieves the current row number, in this case, total number of rows in the ResultSet.
+ 	supPages = Math.ceilDiv(supRows, rowsPerPage);
+   	System.out.println("matPages :" + supPages);
+   	
+ // Count total rows
+ 	rs3.last();
+ 	annRows = rs3.getRow();	// retrieves the current row number, in this case, total number of rows in the ResultSet.
+ 	annPages = Math.ceilDiv(annRows, rowsPerPage);
+   	System.out.println("matPages :" + annPages);
 %>
  <script>
  // 주재료, 공급업체 테이블 칼럼 이름 불러오기
@@ -171,20 +183,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchButton = document.querySelector('.search_button');
     let pageButtonsBox = document.querySelector('#page_buttons');
     let pageNumbers = [];
-    
-	// 페이지 버튼 기능 
-    for (let p = 1; p <= <%= matPages %>; p++) {
-		  let page = document.createElement('button');
-		  page.textContent = p;
-		  pageNumbers.push(page.textContent);
-		  pageButtonsBox.appendChild(page);
-	  }
-    
 
     // 자재관리 테이블 버튼 클릭 이벤트   => id="mat_table"
     document.getElementById('material_management_button').addEventListener('click', function() {
       document.querySelector('.solid_box > div:first-child > h2').textContent = "자재 관리"
       const contentArea = document.getElementById('content_area');
+      
+      // 페이지 버튼 기능 
+      if (pageButtonsBox.children.length == 0) {
+	      for (let p = 1; p <= <%= matPages %>; p++) {
+	  		  let page = document.createElement('button');
+	  		  page.textContent = p;
+	  		  pageNumbers.push(page.textContent);
+	  		  pageButtonsBox.appendChild(page);
+	  	  }
+      } else {
+    	  while (pageButtonsBox.firstChild) {
+    		    pageButtonsBox.removeChild(pageButtonsBox.firstChild);
+    		}
+    	  for (let p = 1; p <= <%= matPages %>; p++) {
+	  		  let page = document.createElement('button');
+	  		  page.textContent = p;
+	  		  pageNumbers.push(page.textContent);
+	  		  pageButtonsBox.appendChild(page);
+	  	  }
+      }
       
       // 테이블 생성
       contentArea.innerHTML = `
@@ -234,11 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
     		    	        });
     	  });
       });
-
-
-
-	  
-    
 	  
 	  // 검색 기능
       searchInput.addEventListener("keyup", function(event){
@@ -376,7 +394,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('contact_management_button').addEventListener('click', function() {
       document.querySelector('.solid_box > div:first-child > h2').textContent = "공급업체 연락처"
       const contentArea = document.getElementById('content_area');
-      contentArea.className = 'content';
+      
+      // 페이지 버튼 기능 
+      if (pageButtonsBox.children.length == 0) {
+	      for (let p = 1; p <= <%= supPages %>; p++) {
+	  		  let page = document.createElement('button');
+	  		  page.textContent = p;
+	  		  pageNumbers.push(page.textContent);
+	  		  pageButtonsBox.appendChild(page);
+	  	  }
+      } else {
+    	  while (pageButtonsBox.firstChild) {
+    		    pageButtonsBox.removeChild(pageButtonsBox.firstChild);
+    		}
+    	  for (let p = 1; p <= <%= supPages %>; p++) {
+	  		  let page = document.createElement('button');
+	  		  page.textContent = p;
+	  		  pageNumbers.push(page.textContent);
+	  		  pageButtonsBox.appendChild(page);
+	  	  }
+      }
+      
       contentArea.innerHTML = `
         	<table>
         		<thead>
@@ -385,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
         		<tbody></tbody>
         	</table>
         `;
-        let tr = document.querySelector('thead tr');
+      let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
       const deleteButton = document.getElementById('delete_button');
       const addButton = document.getElementById('add_button');
@@ -401,45 +439,23 @@ document.addEventListener('DOMContentLoaded', function() {
       let tbody_tr;
       let tbody_td;
       
-      <% while (rs2.next()) { 
-    	  	supRows += 1;
-      		SupplyContact sp = new SupplyContact();
-      		sp.setSup_no(rs2.getInt("SUP_NO"));
-      		sp.setSup_name(rs2.getString("SUP_NAME"));
-      		sp.setSup_phone(rs2.getString("SUP_PHONE"));
-      		sp.setSup_address(rs2.getString("SUP_ADDRESS"));
-      		sp.setSup_email(rs2.getString("SUP_EMAIL"));
-      		
-      		%>
-      		
-      		tbody_tr = document.createElement('tr');
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_no()%>"))
-      		tbody_tr.appendChild(tbody_td);
-			
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_name()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_phone()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_address()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		tbody_td = document.createElement('td');
-      		tbody_td.appendChild(document.createTextNode("<%= sp.getSup_email()%>"))
-      		tbody_tr.appendChild(tbody_td);
-      		
-      		
-      		
-      		tbody.appendChild(tbody_tr);
-        <%}
-      rs.close();%>
-      
+      document.querySelectorAll('#page_buttons > button').forEach(btn => {
+    	  btn.addEventListener("click", function() {
+    		  console.log("Button clicked:", btn.textContent);
+    	      fetch('supply_table.jsp?page=' + btn.textContent)
+    	      	.then((response) => response.text())
+    	      	.then((data) => {
+    	      		// Update the content area with the response
+    	      		contentArea.innerHTML = data;
+    	      		addRowEventListeners();
+    	      		
+    	      	})
+    	      	.catch((error) => {
+    		    	            console.error("Error fetching data:", error);
+    		    	        });
+    	  });
+      });
+
    	  // 검색 기능
       searchInput.addEventListener("keyup", function(event){
     	  if (event.key === "Enter") {
@@ -463,23 +479,25 @@ document.addEventListener('DOMContentLoaded', function() {
       
 
       //행 선택 동작
-	  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
-		  row.addEventListener("click", function(event) {
-			  // 단일행 선택 동작
-			 if (selectedRows.includes(this)) {
-				// Deselect the row
-				selectedRows = selectedRows.filter(r => r != this);
-				this.classList.remove('selected');
-				console.log("selected Rows", selectedRows);
-			 }  else {
-				// Select the row 
-				selectedRows.forEach(r => r.classList.remove('selected'));
-				selectedRows = [this];
-				this.classList.add('selected');
-				console.log("selected Rows", this);
-			 }
+      function addRowEventListeners() {
+		  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
+			  row.addEventListener("click", function(event) {
+				  // 단일행 선택 동작
+				 if (selectedRows.includes(this)) {
+					// Deselect the row
+					selectedRows = selectedRows.filter(r => r != this);
+					this.classList.remove('selected');
+					console.log("selected Rows", selectedRows);
+				 }  else {
+					// Select the row 
+					selectedRows.forEach(r => r.classList.remove('selected'));
+					selectedRows = [this];
+					this.classList.add('selected');
+					console.log("selected Rows", this);
+				 }
+			  });
 		  });
-	  });
+      }
   	  
   	  // 행 버튼 동작
 	  // 삭제 버튼
@@ -573,11 +591,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //공지사항
     document.getElementById('announcement_management_button').addEventListener('click', function() {
         document.querySelector('.solid_box > div:first-child > h2').textContent = "공지사항"
-        
-      
-      
         const contentArea = document.getElementById('content_area');
-        contentArea.className = 'content';
         contentArea.innerHTML = `
           	<table>
           		<thead>
@@ -586,57 +600,98 @@ document.addEventListener('DOMContentLoaded', function() {
           		<tbody></tbody>
           	</table>
           `;
-          let tr = document.querySelector('thead tr');
+        // 페이지 버튼 기능 
+        if (pageButtonsBox.children.length == 0) {
+	      for (let p = 1; p <= <%= annPages %>; p++) {
+	  		  let page = document.createElement('button');
+	  		  page.textContent = p;
+	  		  pageNumbers.push(page.textContent);
+	  		  pageButtonsBox.appendChild(page);
+	  	  }
+      } else {
+    	  while (pageButtonsBox.firstChild) {
+    		    pageButtonsBox.removeChild(pageButtonsBox.firstChild);
+    		}
+    	  for (let p = 1; p <= <%= annPages %>; p++) {
+	  		  let page = document.createElement('button');
+	  		  page.textContent = p;
+	  		  pageNumbers.push(page.textContent);
+	  		  pageButtonsBox.appendChild(page);
+	  	  }
+      }
+     // 테이블 생성
+        contentArea.innerHTML = `
+      	  <table>
+      		<thead>
+      			<tr></tr>
+      		</thead>
+      		<tbody></tbody>
+      	</table>
+        `;
+        
+        const deleteButton = document.getElementById('delete_button');
+        const addButton = document.getElementById('add_button');
+        const editButton = document.getElementById('edit_button');
+        const logoutButton = document.getElementById('logout_button');
+        
+        //ANNOUNCEMENT DB 불러오기
+        let tr = document.querySelector('thead tr');
         const tbody = document.querySelector('tbody');
-     
+        let showingRowsNum = 10;
         
-        
-        
-        
-        for (let l = 0; l < announcement_col_names.length; l++) {
+        // <th> 칼럼 행 생성
+        for (let i = 0; i < announcement_col_names.length; i++) {
       	  let th = document.createElement('th');
-      	  th.appendChild(document.createTextNode(announcement_col_names[l]));
+      	  th.appendChild(document.createTextNode(announcement_col_names[i]));
       	  tr.appendChild(th);
         }
         
+        // <tr> 본문 행 생성
         let tbody_tr;
         let tbody_td;
+        let totalRows = [];
         
-        <% 
-        while (rs3.next()) { 
-        	annRows += 1;
-            Announcement an = new Announcement();
-            an.setNo(rs3.getInt("NO"));
-            an.setWriter(rs3.getString("WRITER"));
-            an.setContent(rs3.getString("CONTENT"));
-          
-            
-            
-    %>
-            tbody_tr = document.createElement('tr');
-            
-            tbody_td = document.createElement('td');
-            tbody_td.appendChild(document.createTextNode("<%= an.getNo()%>"));
-            tbody_tr.appendChild(tbody_td);
-
-            tbody_td = document.createElement('td');
-            tbody_td.appendChild(document.createTextNode("<%= an.getWriter()%>"));
-            tbody_tr.appendChild(tbody_td);
-            
-            tbody_td = document.createElement('td');
-            tbody_td.appendChild(document.createTextNode("<%= an.getContent()%>"));
-            tbody_tr.appendChild(tbody_td);
-            
-            
-            
-            
-
-            
-            
-            tbody.appendChild(tbody_tr);
-    <% } 
+        document.querySelectorAll('#page_buttons > button').forEach(btn => {
+      	  btn.addEventListener("click", function() {
+      		  console.log("Button clicked:", btn.textContent);
+      	      fetch('ann_table.jsp?page=' + btn.textContent)
+      	      	.then((response) => response.text())
+      	      	.then((data) => {
+      	      		// Update the content area with the response
+      	      		contentArea.innerHTML = data;
+      	      		addRowEventListeners();
+      	      		
+      	      	})
+      	      	.catch((error) => {
+      		    	            console.error("Error fetching data:", error);
+      		    	        });
+      	  });
+        });
+        
+        
+    <% 
         rs3.close();
     %>
+    //행 선택 동작
+    function addRowEventListeners() {
+		  document.querySelectorAll('#content_area > table > tbody > tr').forEach(row => {
+			  row.addEventListener("click", function(event) {
+				  // 단일행 선택 동작
+				 if (selectedRows.includes(this)) {
+					// Deselect the row
+					selectedRows = selectedRows.filter(r => r != this);
+					this.classList.remove('selected');
+					console.log("selected Rows", selectedRows);
+				 }  else {
+					// Select the row 
+					selectedRows.forEach(r => r.classList.remove('selected'));
+					selectedRows = [this];
+					this.classList.add('selected');
+					console.log("selected Rows", this);
+				 }
+			  });
+		  });
+    }
 
       });
     })
