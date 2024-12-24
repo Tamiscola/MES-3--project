@@ -15,21 +15,6 @@ h1 {
     margin-left: 4px;
     vertical-align: middle;
 }
-button {
-    cursor: pointer;
-}
-button, input, select, textarea {
-    border-radius: 0;
-    border: none;
-    background: 0 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: 0;
-    text-decoration: none;
-    cursor: pointer;
-    -webkit-text-size-adjust: none;
-}
 body, button, input, select, table, textarea {
     font-family: Malgun Gothic, '留묒� 怨좊뵓', Helvetica, sans-serif;
     font-size: 12px;
@@ -66,6 +51,18 @@ html {
     width: 30px;
     height: 30px;
 }
+button, input, select, textarea {
+    border-radius: 0;
+    border: none;
+    background: 0 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-text-size-adjust: none;
+}
 .btn_show::before {
     background-position: -256px -296px;
     background-repeat: no-repeat;
@@ -74,6 +71,20 @@ html {
     display: inline-block;
     vertical-align: top;
     content: '';
+}
+button {
+    cursor: pointer;
+}
+.btn_submit {
+    width: 100%;
+    padding: 14px 0;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, .05);
+    background: #09aa5c;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    color: #fff;
 }
 .form_item:first-of-type {
     border-top-left-radius: 6px;
@@ -88,6 +99,11 @@ html {
     max-width: 100%;
     min-height: 50px;
     padding: 0 10px 0 45px;
+}
+body, button, input, select, table, textarea {
+    font-family: Malgun Gothic, 'ï§ë¬’ï¿½ æ€¨ì¢Šëµ“', Helvetica, sans-serif;
+    font-size: 12px;
+    -webkit-text-size-adjust: none;
 }
 .form_item::before {
     position: absolute;
@@ -164,7 +180,8 @@ address, em {
 .link_arrow::before,.check_normal input:checked+label::before,.check_normal label::before,.check_terms .link_arrow::before,.check_terms input:checked+label::before,.check_terms label::before,.form_item.calendar.error::before,.form_item.calendar.on::before,.form_item.calendar::before,.form_item.check_box 
 .btn_expand::before,.form_item.check_box.error .check_circle label::before,.form_item.email.error::before,.form_item.email.on::before,.form_item.email::before,.form_item.globe.error::before,.form_item.globe::before,.form_item.group.error::before,.form_item.group.on::before,.form_item.group::before,.form_item.group_type.error::before,
 .form_item.group_type.on::before,.form_item.group_type::before,.form_item.lock.error::before,.form_item.lock.on::before,.form_item.lock::before,.form_item.phone.error::before,.form_item.phone.on::before,.form_item.phone::before,.form_item.registration_number.error::before,.form_item.registration_number.on::before,.form_item.registration_number::before,
-.form_item.telecom.error::before,.form_item.telecom.on::before,.form_item.telecom::before,.form_item.user.error::before,.form_item.user.on::before,.form_item.user::before,.help_modal_wrap .btn_close::before,.help_modal_wrap .btn_expand::after,.join_link_area .link::after,.join_toggle input:checked+label::after,.join_toggle label::after,.lang_select_wrap::after,.lang_select_wrap::before,.link_certify::after,.logo_naver 
+.form_item.telecom.error::before,.form_item.telecom.on::before,.form_item.telecom::before,.form_item.user.error::before,.form_item.user.on::before,.form_item.user::before,.help_modal_wrap .btn_close::before,.help_modal_wrap .btn_expand::after,.join_link_area .link::after,.join_toggle input:checked+label::after,.join_toggle label::after,.lang_select_wrap::after,
+.lang_select_wrap::before,.link_certify::after,.logo_naver 
 .link::before,.select_box::after,.welcome_wrap .main_title::before,.welcome_wrap .service_link.blog::before,.welcome_wrap .service_link.cafe::before,.welcome_wrap .service_link.home::before,.welcome_wrap .service_link.id::before,.welcome_wrap .service_link.mail::before,.welcome_wrap .service_link.shopping::before,.welcome_wrap .service_link::after {
     background-image: url(https://ssl.pstatic.net/static/nid/join/m_sp_06_realname_48b1e603.png);
     background-size: 372px 326px;
@@ -188,26 +205,6 @@ address, em {
     width: 100vw
     height: 100vh;
 }
-button{
-    width: 440px;
-    height: 50px;
-}
-.btn_submit {
-    width: 100%;
-    padding: 14px 0;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, .05);
-    background: #09aa5c;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 22px;
-    color: #fff;
-}
-body, button, input, select, table, textarea {
-    font-family: Malgun Gothic, 'ï§ë¬’ï¿½ æ€¨ì¢Šëµ“', Helvetica, sans-serif;
-    font-size: 12px;
-    -webkit-text-size-adjust: none;
-}
 .content {
     flex: 1 1 auto;
     padding-top: 30px;
@@ -224,4 +221,12 @@ body, button, input, select, table, textarea {
     width: 60%;
     background: #09aa5c;
     font-weight: 700;
+}
+.logo_natural_yak {
+    flex: none;
+    padding: 19px 115px 19px 20px;
+}
+.btn_submit_wrap {
+    flex: none;
+    padding: 20px;
 }
