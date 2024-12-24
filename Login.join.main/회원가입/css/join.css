@@ -11,7 +11,7 @@
     }
 
     /* 메인 컨테이너 */
-    #main_concontainer {
+    #new_main_concontainer {
       background-color: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 15px;
@@ -23,7 +23,7 @@
     }
 
     /* 제목 스타일 */
-    #main_rogo {
+    #new_main_rogo {
       font-size: 2rem;
       margin-bottom: 20px;
       font-weight: bold;
