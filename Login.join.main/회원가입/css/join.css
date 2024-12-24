@@ -59,16 +59,17 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-    #new_join_button{
-      margin: 30px auto;
-    }
-    #password_button{
+    
+
+    #pw1{
       margin: 20px auto;
     }
     button:hover {
       background-color: rgba(33, 61, 38, 0.671) ;
     }
-
+    #name{
+      margin: 20px auto;
+    }
     /* 체크박스 스타일 */
     #Id_box {
       display: flex;
