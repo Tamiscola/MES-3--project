@@ -58,11 +58,16 @@ if(userId == null) {
 </body>
 <% 
 Connection conn = null;
+Integer totalNum = null;
+
 try {
 	conn = DBManager.getDBConnection();
 	
 	String mat_sql = "SELECT * FROM MAIN_MATERIAL";
+	String mat_count_sql = "SELECT COUNT(*) AS total FROM MAIN_MATERIAL";
+	
 	String sup_sql = "SELECT * FROM SUPPLY_CONTACT";
+	String sup_count_sql = "SELECT COUNT(*) AS total FROM SUPPLY_CONTACT";
 
     PreparedStatement pstmt = conn.prepareStatement(mat_sql);
     PreparedStatement pstmt2 = conn.prepareStatement(sup_sql);
@@ -77,13 +82,11 @@ try {
 	int n_cols2 = rsmd2.getColumnCount();
 	String searchInput = "";
 %>
- 
+	
  <script>
  // 주재료, 공급업체 테이블 칼럼 이름 불러오기
- 
  let mat_col_names = [];
  let sup_col_names = [];
- 
  <% 
  for (int j = 1; j <= n_cols; j++) {
  %>
@@ -99,7 +102,8 @@ try {
  <%
  }
  %>
- 
+ console.log("Material Columns:", mat_col_names);
+ console.log("Supply Columns:", sup_col_names);
  
 document.addEventListener('DOMContentLoaded', function() {
 	let selectedRows = []
@@ -125,8 +129,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const addButton = document.getElementById('add_button');
       const editButton = document.getElementById('edit_button');
       
-      ;
-
       //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
       const tbody = document.querySelector('tbody');
@@ -136,21 +138,12 @@ document.addEventListener('DOMContentLoaded', function() {
     	  let th = document.createElement('th');
     	  th.appendChild(document.createTextNode(mat_col_names[i]));
     	  tr.appendChild(th);
-    	  console.log("루프 반복 횟수:", Math.min(mat_col_names.length, 20));
-
       }
-      
       
       let tbody_tr;
       let tbody_td;
       
-      
-    
-      
-       
-      <%
-      int rowCount = 0;
-      	while (rs.next() && rowCount < 20) { 
+      <% while (rs.next()) { 
       		MainMaterial mm = new MainMaterial();
       		mm.setNo(rs.getInt("NO"));
       		mm.setColor(rs.getString("COLOR"));
@@ -160,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
       		mm.setWaterProof(rs.getString("WATERPROOF"));
       		mm.setWindProof(rs.getString("WINDPROOF"));
       		mm.setSupplyCompany(rs.getString("SUPPLY_COMPANY"));
-      		rowCount++;
       		%>
       		
       		tbody_tr = document.createElement('tr');
@@ -199,11 +191,8 @@ document.addEventListener('DOMContentLoaded', function() {
       		
       		tbody.appendChild(tbody_tr);
       		
-      		
-	  <%
-	  }
+	  <%}
 	  %>
-	  
 	  // 검색 기능
       searchInput.addEventListener("keyup", function(event){
     	  if (event.key === "Enter") {
