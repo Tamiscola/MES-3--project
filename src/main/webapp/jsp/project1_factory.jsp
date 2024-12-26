@@ -148,6 +148,8 @@ try {
  let mat_col_names = [];
  let sup_col_names = [];
  let announcement_col_names = [];
+
+ 
  
  <% 
  for (int j = 1; j <= n_cols; j++) {
@@ -222,7 +224,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const deleteButton = document.getElementById('delete_button');
       const addButton = document.getElementById('add_button');
       const editButton = document.getElementById('edit_button');
-      const logoutButton = document.getElementById('logout_button');
+      
+      
       
       //자재 DB 불러오기
       let tr = document.querySelector('thead tr');
@@ -321,11 +324,18 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
 	  
 	  // 추가 버튼
+	  
+	  
+	  
+	addButton.addEventListener("click", function() {
+  
+    window.open("factory_material_add.jsp", "_blank", "width=1000px, height=300px");
 
-	addButton.addEventListener("click", function(){
-		location.href = "factory_material_add.jsp"
-	});
-
+    
+});
+			
+	  
+	  
 	  
 	  //수정 버튼
 	  
@@ -430,6 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const editButton = document.getElementById('edit_button');
       
       
+      
       for (let i = 0; i < sup_col_names.length; i++) {
     	  let th = document.createElement('th');
     	  th.appendChild(document.createTextNode(sup_col_names[i]));
@@ -520,10 +531,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	  });
   	  
 	  // 추가 버튼
-	  addButton.addEventListener("click", function(){
-		location.href = "factory_sup_add.jsp"
-	});
-	 
+	  addButton.addEventListener("click", function() {
+ 
+		  window.open("factory_sup_add.jsp", "_blank", "width=1000px, height=300px");
+});
   	  
   	  // 수정 버튼
 	  
@@ -694,7 +705,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
       });
+    
+    //로그아웃
+    const logoutButton = document.getElementById('logout_button');
+	logoutButton.addEventListener("click", function() {
+		location.href = "project1_logout.jsp"
+		});
     })
+    
   </script>
   <%	DBManager.dbClose(conn, pstmt, null);
 		} catch (SQLException se) {
