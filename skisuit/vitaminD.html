@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="../skisuit/static/css/calcium.css">  
+    <style>
+        .center_box {
+            display: flex;     /* 대단원 11장 참조 플렉스 컨테이너 지정 */
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+            width: 500px;
+            border: 1px solid black;
+            flex-direction: column;   /* 주축을 세로*/
+            justify-content: center; /* 주축을 가로로 중앙 정렬 */
+            align-items: center; /* 주측을 세로로 중앙 정렬 */
+        }
+        .big_box {
+            display: flex;
+            flex-direction: column;
+        }
+        .top_box {
+            width: 177px;
+            height: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+        }
+        .join_box {
+            margin-left: auto;   /* 책 242페이지 보기 */
+            margin-right: auto;
+            border: 1px solid black;
+            width: 200px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            margin-top: 100px;
+        }
+        .id_box {
+            width: 177px;
+            height: 70px;
+            border: 1px solid blue;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+        }
+        .password_box {
+            width: 177px;
+            height: 90px;
+            border: 1px solid red;
+        }
+        .name_box {
+            width:  177px;  /* 너비 */ 
+            height: 100px;  /* 높이 */
+            border: 1px solid green; /* 박스 겉면: 1px의 실선 색깔 그린 */
+        }
+        .new_join_box {
+            width: 177px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+        }
+        .pw_ck_box {
+            margin-left: auto;   
+            margin-right: auto;
+            width: 177px;
+            height: 70px;
+            border: 1px solid gray;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+        }
+
+    </style>
+</head>
+<body>
+    <div class="big_box">
+        <div class="top_box">natural_yak</div>
+        <div class="center_box">
+            <div class="id_box">
+                <li>
+                    <label for="uid">아이디</label>
+                    <input type="text" id="uid">
+                </li>
+            </div>
+            <div class="password_box">
+                <li>
+                    <label for="pwd1">비밀번호</label>
+                    <input type="password" id="pw">
+                </li>
+            </div>
+            <div class="pw_check_box">
+                <li>
+                    <label for="pwd2">비밀번호 확인</label>
+                    <input type="password2" id="pw_check">
+                </li>
+            </div>
+            <div class="name_box">
+                <li>
+                    <label for="user-name">이름</label>
+                    <input type="text" id="user-name">
+                </li>
+            </div>
+        </div>
+        <div class="join_box">
+            <div class="new_join_box">가입</div>
+        </div>
+    </div>
+</body>
+</html>
